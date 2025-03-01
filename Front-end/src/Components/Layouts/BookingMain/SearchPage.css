@@ -1,0 +1,188 @@
+﻿﻿@import url(../../Fonts/font.css);
+.Booking-Main-Body {
+    position: absolute;
+    width: 100%;
+    top: 220px;
+}
+
+.custom-container {
+    min-height: 800px;
+    background-color: #F5F7F9;
+}
+
+.custom-paper {
+    margin-top: 10px;
+    border-radius: 6px;
+}
+
+.filter_header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 2px solid #EFEFEF;
+
+}
+
+.filter_header_left {
+    font-size: 13px;
+    font-weight: 500;
+    font-family: ui-monospace;
+}
+
+.filter_header_right {
+    font-size: 15px;
+    color: #70B3EF;
+    font-weight: 600;
+    font-family: ui-monospace;
+}
+
+    .filter_header_right:hover {
+        cursor: ui-monospace;
+    }
+
+.filter-main {
+    padding: 15px;
+}
+
+.filter-main-header {
+    font-family: ui-monospace;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.time-line {
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #EFEFEF;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: ui-monospace;
+    cursor: pointer;
+    transition: background-color 0.3s, border 0.3s, color 0.3s, transform 0.3s;
+}
+
+    .time-line.active {
+        background-color: #70b3df;
+        color: white;
+        transform: scale(1.05);
+    }
+
+.filter-icon {
+    margin-bottom: 10px;
+}
+
+.time-line:hover {
+    cursor: pointer;
+}
+
+.filter-time {
+    font-weight: 600;
+    color: black;
+}
+
+.filter-time-detail {
+    font-size: 14px;
+    font-weight: normal;
+    color: #6E7985;
+}
+
+.time-line.active .filter-time,
+.time-line.active .filter-time-detail {
+    color: white;
+}
+
+.m-top-10 {
+    margin-top: 10px;
+}
+
+.RangeSlider-Wrapper {
+    max-width: 80%;
+    margin: auto;
+}
+
+.min-price, .max-price {
+    background-color: #fff;
+    border: 1px solid #EFEFEF;
+    border-radius: 8px;
+    font-family: ui-monospace;
+}
+
+    .max-price > p {
+        padding: 8px;
+        font-size: 12px;
+        color: #333;
+        margin-bottom: 0;
+        margin-left: 2px;
+    }
+
+    .min-price > p {
+        padding: 8px;
+        font-size: 12px;
+        color: #333;
+        margin-bottom: 0;
+        margin-left: 2px;
+    }
+
+.max-price-value, .min-price-value {
+    display: flex;
+    justify-content: flex-start;
+    max-width: 70%;
+}
+
+.flights-not-found {
+    font-weight: 500;
+    font-size: 16px;
+    font-family: ui-monospace;
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    height: 100vh; /* Chiều cao là 100% của viewport */
+}
+
+.flights-not-found-text {
+    margin-right: 10px;
+}
+
+.ticker-result-wrapper {
+    max-height: 700px;
+    overflow-y: auto; /* Hiển thị thanh cuộn theo chiều dọc nếu nội dung vượt quá max-height */
+    padding: 22px; /* Padding để tạo khoảng trắng xung quanh nội dung */
+}
+
+    .ticker-result-wrapper::-webkit-scrollbar {
+        width: 8px; /* Độ rộng của thanh cuộn */
+    }
+
+    .ticker-result-wrapper::-webkit-scrollbar-thumb {
+        background-color: #1976d2; /* Màu nền của thanh cuộn */
+        border-radius: 6px; /* Độ cong của góc thanh cuộn */
+    }
+
+    .ticker-result-wrapper::-webkit-scrollbar-track {
+        background-color: #eee; /* Màu nền của vùng cuộn */
+    }
+
+.loading-icons {
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    height: 100vh; /* Chiều cao là 100% của viewport */
+}
+
+.custom-button-search {
+    font-family: Inter !important;
+    font-size: 13px !important;
+    border-radius: 10px !important;
+    margin-right: 10px !important;
+    margin-top: 10px !important;
+    margin-left: 10px !important;
+}
+
+.button_change {
+    margin-bottom: 10px;
+}

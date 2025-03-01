@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+.main-name{
+    font-weight: bolder;
+    color: rgb(112, 183, 234);
+    margin-top: 20px;
+
+    margin-left: 0;
+    font-family: Open sans;
+}
+.col{
+    display: flex;
+}
+.space {
+    height: 100px
+}
+/*css cho cái table */
+.pagination{
+    margin-top: 10px;
+   bottom: 0;
+   position: relative;
+    width: 100%;
+}
+.form-group label {
+    width: 100%;
+    white-space: nowrap;
+}
+.btn-click {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    
+  }
+#loaiDoanhSo {
+    width: 200px;
+}
+#nhapnam, #nhapthang {
+    padding-left: 50px;
+}
+#reportPDF{
+    font-size:13px;
+}

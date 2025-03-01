@@ -1,0 +1,168 @@
+.text-insertCancel {
+    width: 550px; /* Đặt chiều rộng cho form */
+    position: absolute;
+    top: 58%; /* Đặt vị trí ở giữa theo chiều cao */
+    left: 50%; /* Đặt vị trí ở giữa theo chiều rộng */
+    transform: translate(-50%, -50%); /* Dịch chuyển form để nằm chính giữa */
+    font-family: "open sans";
+    font-weight: 100;
+    padding: 5px;
+}
+
+.grey-section {
+    width: 100%;
+    height: 420px;
+    background-color: #ffffff ;
+    position: absolute;
+    
+}
+.container2 {
+    height: 500px;
+}
+.inforCancel {
+    width: 841px;
+    height: 355px;
+    flex-shrink: 0;
+    border-radius: 35px;
+    border: 1px solid #ccc;
+    background: #FFFFFF;
+    position: absolute;
+    margin-top: -35px;
+    margin-left: 300px;
+}
+.form-signinCancel {
+    margin-top: 60px;
+    margin-left: 120px;
+}
+.form-controlCancel {
+    width: 450px; /* Đặt chiều rộng 100% cho input */
+    height: 40px;
+    margin-bottom: 10px; /* Thêm khoảng cách giữa các trường nhập */
+    border: 1px solid #ccc;
+    border-radius: 5px ;
+}
+.mb-3 {
+    margin-bottom: 40px; /* Xác định khoảng cách giữa các dòng là 20 pixel */
+}
+
+#btnSearchCancel {
+    margin-top: 20px;
+    margin-left: 250px;
+    width: 107px;
+    height: 34px;
+    flex-shrink: 0;
+    background: #0F5A90;
+    color: #FBF8F8;
+    font-family: Inder;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#myModal {
+    position: fixed;
+    padding-top: 300px;
+    padding-left: 370px;
+    padding-right: 400px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+.modal-first {
+    margin-top: -798px;
+    margin-left: -420px;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+#myModal-cancel-continue {
+    position: fixed;
+    padding-top: 300px;
+    padding-left: 370px;
+    padding-right: 400px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.modal-cancel-continue {
+    margin-top: -798px;
+    margin-left: -420px;
+    background-color: rgba(255, 255, 255, 0.7);
+
+}
+
+/* CSS cho modal content */
+.modal-content, .modal-content-cancel-continue {
+    background-color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    position: relative;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* CSS cho nút đóng modal */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+.cancel-return {
+    display: flex;
+    margin-top: 50px;
+}
+.cancel-button {
+    flex: 1;
+    width: 100px;
+    height: 40px;
+}
+#cancel-first, #cancel-second {
+    width: 100px;
+    height: 40px;
+    border: 2px solid;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.return-button {
+    flex: 1;
+    width: 100px;
+    height: 40px;
+}
+#return-first, #return-second {
+    width: 100px;
+    height: 40px;
+    border: 2px solid;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.footer {
+    width: 100%;
+    height: auto;
+    background-image: linear-gradient(0deg, #4698D4 1.27%, rgba(125, 209, 248, 0.27) 126.64%);
+    color: #FFFFFF;
+}
+
+.text-body-secondary {
+    color: #F4F4F4;
+    font-family: Oleo Script;
+    font-size: large;
+}
+.icon_footer {
+    display: flex;
+}
+.icon {
+    width: 30px;
+    margin-right: 5px;
+    margin-top: -20px;
+}

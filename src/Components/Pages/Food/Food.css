@@ -1,0 +1,72 @@
+﻿@import url(../../Fonts/font.css);
+.seat-reservation-wrapper {
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 20px !important;
+}
+.seat-reservation-header {
+    width: 40%;
+}
+.seat-reservation-title {
+    font-family: Inter;
+    font-size: 15px;
+    font-weight: bold;
+}
+.food-name {
+    color: #7ebf47;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: Inter;
+    
+}
+.food-price-wrapper
+{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-left:16px;
+    padding-right:16px;
+}
+.food-price {
+    font-size: 12px;
+    font-weight: bold;
+    font-family: Inter;
+    color:#333;
+}
+.food-delivery {
+    font-size: 13px;
+    font-weight: bold;
+    font-family: Inter;
+    color:#808080;
+}
+.food-time {
+    display: flex;
+    padding-left: 16px;
+    padding-right: 16px;
+    justify-content: flex-start;
+    align-items: center;
+}
+.time-serve {
+    padding-left: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: Inter;
+}
+.card-footer {
+    font-size: 13px;
+    font-weight: 500;
+    font-family: Inter;
+    color: #808080;
+    padding-left: 16px;
+    padding-top:10px;
+    padding-right: 16px;
+    border-top:1px solid #efefef;
+}
+.card-foot {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease-in-out;
+}
+    .card-foot:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+    }

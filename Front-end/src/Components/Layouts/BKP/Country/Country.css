@@ -1,0 +1,50 @@
+﻿﻿@import url(../../../Fonts/font.css);
+.country {
+    padding: 5px;
+    max-height: 500px;
+}
+
+h5 {
+    font-size: 16px;
+    padding: 8px;
+    color: rgb(25, 118, 210);
+}
+
+.airport_wrapper {
+    font-size: 14px;
+    overflow-y: hidden;
+    font-weight: 500;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 8px;
+}
+
+    .airport_wrapper:hover {
+        cursor: pointer;
+        background-color: #edeff1;
+    }
+
+.airport_item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.airport_city {
+    padding: 8px;
+}
+
+.airport_name {
+    padding-top: 8px;
+}
+
+.city_code {
+    color: #333;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 17px;
+}
+
+.city_name {
+    font-size: 16px;
+    font-weight: 550;
+}

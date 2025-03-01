@@ -1,0 +1,198 @@
+﻿﻿@import url(../../../Fonts/font.css);
+.Ticket-Wrapper {
+    margin-top: 10px;
+    height: 130px;
+    background-color: #fff;
+    border-radius: 15px;
+    display: flex;
+}
+
+.Ticket-Wrapper:hover {
+    cursor: pointer;
+}
+
+.Ticket-Left {
+    flex: 3;
+    height: 100%;
+    display: flex;
+    border-right: 2px dashed #808080;
+    position: relative;
+}
+
+    .Ticket-Left::before {
+        content: "";
+        width: 40px;
+        height: 35px;
+        background-color: #F5F7F9;
+        border-radius: 50%;
+        position: absolute;
+        top: -18%;
+        right: -20px;
+    }
+
+    .Ticket-Left::after {
+        content: "";
+        width: 40px;
+        height: 35px;
+        background-color: #F5F7F9;
+        border-radius: 50%;
+        position: absolute;
+        bottom: -18%;
+        right: -20px;
+    }
+
+.Logo-Wrapper {
+    background-color: #F5F7F9;
+    height: 120px;
+    margin: 5px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Logo-Image {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .Logo-Image > img {
+        object-fit: contain;
+        width: 80%;
+    }
+
+.schedule {
+    display: flex;
+    margin-left: 30px;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 30px;
+    flex: 1;
+}
+
+.schedule-depart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.schedule-detail {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex: 1;
+}
+
+.schedule-des {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.schedule-header {
+    margin: 0;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #808080;
+    font-family: Inter;
+}
+
+.schedule-date {
+    margin: 0;
+    font-size: 12px;
+    color: #808080;
+}
+
+.schedule-time {
+    margin-top: 5px;
+    font-family: Inter;
+}
+
+.schedule-round-left {
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-color: #73B5FF;
+    border-radius: 50%;
+    position: relative;
+}
+
+.schedule-round-right {
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-color: #73B5FF;
+    border-radius: 50%;
+    position: relative;
+}
+
+.time-duration {
+    padding: 5px 15px;
+    background-color: #DCEDFE;
+    border-radius: 15px;
+    font-size: 13px;
+    font-family: Inter;
+    position: relative;
+    z-index: 10;
+    color: #73B5FF;
+    font-weight: 500;
+}
+
+.schedule-round-left::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 45px;
+    border-top: 1px dashed #dbecef;
+    right: -45px;
+    transform: translateY(-50%);
+    z-index: 1; /* Đảm bảo đường nét đứt hiển thị phía sau thẻ div */
+}
+
+.schedule-round-right::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 45px;
+    border-top: 1px dashed #dbecef;
+    left: -45px;
+    transform: translateY(-50%);
+    z-index: 1; /* Đảm bảo đường nét đứt hiển thị phía sau thẻ div */
+}
+
+.Ticket-Right {
+    flex: 1;
+    padding: 10px;
+}
+
+.Price-header {
+    margin-top: 20px;
+    margin-bottom: 2px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #808080;
+    font-family: Inter;
+    text-align: center;
+}
+
+.Price-value {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.price-value {
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: bold;
+    margin: 0
+}
+
+.price-value-VND {
+    margin-left: 8px;
+}

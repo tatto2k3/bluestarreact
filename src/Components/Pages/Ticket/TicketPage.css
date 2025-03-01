@@ -1,0 +1,50 @@
+﻿﻿@import url(../../Fonts/font.css);
+.ticket-wrapper {
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 20px !important;
+}
+
+.ticket-header {
+    width: 40%;
+}
+
+.vocative {
+    padding: 10px 15px;
+    border: 1px solid #efefef;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.ticket-header-title {
+    font-family: ui-monospace;
+    font-size: 15px;
+}
+
+.vocative:hover {
+    cursor: pointer;
+    background-color: #0F5A90;
+    font-family: ui-monospace;
+    font-weight: 500;
+    color: #fff;
+}
+
+.ticket-input-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.ticket-label {
+    font-size: 14px;
+    font-family: ui-monospace;
+    font-weight: 500;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.ticket-input {
+    padding: 6px 10px;
+    outline: none;
+    border: 1px solid #efefef;
+    border-radius: 10px;
+}

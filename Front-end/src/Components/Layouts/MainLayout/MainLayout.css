@@ -1,0 +1,183 @@
+﻿﻿@import url(../../Fonts/font.css);
+.Ticket-Left-ticketPage {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease-in-out;
+    margin-top: 15px;
+}
+.Ticket-Left-ticketPage:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+p {
+    margin: 0;
+}
+
+h6 {
+    margin: 0;
+}
+
+.Logo-Wrapper-ticketPage {
+    background-color: #EFEFEF;
+    padding: 12px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-left {
+    display: flex;
+    align-items: center;
+}
+
+    .logo-left > h6 {
+        margin-left: 15px;
+    }
+
+.Logo-Image-ticketPage {
+}
+
+.ticket-class {
+}
+
+.schedule.ticketPage {
+    margin-left: 35px;
+    padding-right: 35px;
+}
+
+.schedule-detail.ticketPage {
+    flex: 1.5;
+}
+
+.schedule-depart.ticketPage {
+    flex: 1;
+}
+
+.schedule-des.ticketPage {
+    flex: 1;
+}
+
+.schedule-round-right.ticketPage {
+    margin-right: 14px;
+}
+
+schedule-round-left.ticketPage {
+    margin-left: 12px;
+}
+
+.airport-depart {
+    font-size: 12px;
+    color: #808080;
+    font-family: ui-monospace;
+}
+
+.main-layout-nav {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.main-layout-nav {
+    display: flex;
+    margin-top: 18px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    justify-content: space-between;
+    transition: transform 0.3s ease-in-out;
+    align-items: center;
+}
+
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-title {
+    font-size: 14px;
+    font-weight: 500;
+    font-family: ui-monospace;
+    padding-right: 15px;
+}
+
+    .page-title.active {
+        color: #7CBAEF;
+    }
+
+.main-layout-nav:hover {
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    transform: scale(1.05);
+}
+
+.fare-paper {
+    border-radius: 20px !important;
+}
+
+.fare-header {
+    font-size: 18px;
+    font-weight: 500;
+    font-family: ui-monospace;
+    padding: 15px;
+    border-bottom: 1px solid #efefef;
+}
+
+.item-list {
+    padding: 15px;
+    list-style: none;
+}
+
+.item-ticket {
+    font-size: 14px;
+    color: #808080;
+    display: flex;
+    justify-content: space-between;
+    font-family: ui-monospace;
+    padding-top: 10px;
+}
+
+.button-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ticker-footer {
+    padding: 20px;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background-color: #efefef;
+}
+
+.ticker-footer-total {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.ticker-footer-value {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.btn-next {
+    font-size: 15px;
+    margin-top: 15px;
+    width: 100px;
+    font-family: ui-monospace;
+    background-color: #58a7ff;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}

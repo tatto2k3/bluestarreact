@@ -1,0 +1,56 @@
+
+.imgPersonal {
+    margin: 20px 620px;
+}
+.text-insertSearch{
+    width: 550px; /* Đặt chiều rộng cho form */
+    position: absolute;
+    top: 58%; /* Đặt vị trí ở giữa theo chiều cao */
+    left: 50%; /* Đặt vị trí ở giữa theo chiều rộng */
+    transform: translate(-50%, -50%); /* Dịch chuyển form để nằm chính giữa */
+    font-family: "open sans";
+    font-weight: 100;
+    padding: 5px;
+}
+
+
+.inforPersonal {
+    width: 841px;
+    height: 355px;
+    flex-shrink: 0;
+    border: 1px solid #ccc;
+    border-radius: 35px;
+    background: #FFFFFF;
+    margin: 20px auto;
+
+
+}
+
+
+.form-signinPersonal {
+    
+    margin-top: 60px;
+    margin-left: 120px;
+}
+.form-controlPersonal {
+    width: 450px; /* Đặt chiều rộng 100% cho input */
+    height: 40px;
+    margin-bottom: 10px; /* Thêm khoảng cách giữa các trường nhập */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+/* .mb-3 row text-xl-center{
+    margin-bottom: 20px; */
+
+
+ .searchPersonal {
+    margin-top: 15px;
+    margin-left: 600px;
+    background: #0F5A90;
+    color: #FBF8F8;
+    font-family: open sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

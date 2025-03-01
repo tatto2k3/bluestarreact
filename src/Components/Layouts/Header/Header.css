@@ -1,0 +1,136 @@
+﻿@import url(../../Fonts/font.css);
+
+.navbar_custom {
+    font-family: "Oleo Script";
+    font-size:32px;
+}
+.main-color {
+    background: linear-gradient(180deg, #4698D4 1.27%, rgba(125, 209, 248, 0.27) 126.64%);
+}
+
+
+.nav-item  {
+    font-family: "Inter";
+    font-size: 18px;
+    margin-right:20px;
+}
+.text-main-color {
+    color: #0F5A90;
+}
+.main-button {
+    border: none;
+    outline: none;
+    background-color: #0F5A90;
+    border-radius:25px;
+    padding-left:12px;
+    padding-right:12px;
+}
+.main-button:hover {
+   background-color: #fff;
+
+}
+
+.main-button:hover a {
+    color: #0F5A90;
+}
+.main-button a 
+{
+    color:#fff;
+
+}
+.custom-margin {
+    margin-right: 15px;
+
+}
+
+/* Định dạng tổng thể của carousel */
+.carousel {
+    width: 100%;
+    max-height: 500px; /* Chiều cao tối đa của slide */
+    overflow: hidden;
+}
+
+/* Định dạng hình ảnh trong slide */
+.carousel-inner img {
+    width: 100%;
+    height: 500px; /* Chiều cao đồng nhất */
+    object-fit: cover; /* Cắt ảnh cho vừa khung mà không méo */
+    border-radius: 10px; /* Bo góc ảnh nhẹ */
+}
+
+/* Nút điều hướng slide */
+.carousel-control-prev, .carousel-control-next {
+    width: 5%; /* Thu nhỏ nút điều hướng */
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    filter: invert(100%); /* Chuyển màu icon sang trắng */
+}
+
+/* Chỉ báo (dot) dưới slide */
+.carousel-indicators li {
+    background-color: #ffffff; /* Màu trắng cho dot */
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.carousel-indicators .active {
+    background-color: #007bff; /* Dot active màu xanh */
+}
+
+@keyframes rotateLogo {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.logo-rotate {
+    width: 100px; /* Điều chỉnh kích thước logo nếu cần */
+    height: auto;
+    animation: rotateLogo 6s linear infinite; /* Xoay 6 giây/lần, lặp vô hạn */
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.navbar-help {
+    color: #927200;
+    font-size: small;
+}
+
+/* Điều chỉnh dropdown ngôn ngữ */
+.navbar-language {
+    margin-left: 10px;
+    border: 1px solid #ddd;
+    background-color: #ffffff;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Khi hover vào dropdown */
+.navbar-language:hover {
+    background-color: #f0f0f0;
+}
+
+/* Khi focus vào dropdown */
+.navbar-language:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.navbar-top-right {
+    margin-bottom: 5px;
+}

@@ -1,0 +1,35 @@
+.table th:nth-child(5) {
+    width: 150px;
+}
+.confirmation-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    font-size: 26px;
+    text-align: center;
+}
+
+.confirmation-dialog button {
+    margin: 0 10px;
+    padding: 10px 20px; /* Adjust padding as needed */
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.confirmation-dialog button.yes {
+    background-color: #28a745; /* Green color for "Yes" button */
+    color: white;
+}
+
+.confirmation-dialog button.no {
+    background-color: #dc3545; /* Red color for "No" button */
+    color: white;
+}
