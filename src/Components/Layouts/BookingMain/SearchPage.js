@@ -33,7 +33,7 @@ export default function SearchPage() {
         queryAPI(depatureTime, arrivalTime);
     };
 
-    console.log("total_flight:", searchResult.total_flight);
+    console.log("total_flight:", searchResult);
 
     const navigate = useNavigate();
     const handleTicketClick = (flight) => {
@@ -228,10 +228,10 @@ export default function SearchPage() {
         <Grid item md={8}>
             <div className="sort_header">
             
-                {searchResult.flight && searchResult.flight.length > 0 && searchResult.flight[0] && (
+                {searchResult.flights && searchResult.flights.length > 0 && searchResult.flights[0] && (
                     <div className="search-result-header">
                         <h6>
-                            We have {searchResult.total_flight} tickets from {searchResult.flight[0].fromLocation} to {searchResult.flight[0].toLocation}
+                            We have {searchResult.total_flight} tickets from {searchResult.flights[0].fromLocation} to {searchResult.flights[0].toLocation}
                         </h6>
                         {
                             tripType === "roundTrip" && (

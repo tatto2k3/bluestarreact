@@ -1,10 +1,4 @@
 ﻿﻿@import url(../../Fonts/font.css);
-.Booking-Main-Body {
-    position: absolute;
-    width: 100%;
-    top: 220px;
-}
-
 .custom-container {
     min-height: 800px;
     background-color: #F5F7F9;
@@ -20,7 +14,6 @@
     justify-content: space-between;
     padding: 15px;
     border-bottom: 2px solid #EFEFEF;
-
 }
 
 .filter_header_left {

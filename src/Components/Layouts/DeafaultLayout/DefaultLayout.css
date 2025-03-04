@@ -1,15 +1,18 @@
 ﻿.body-main
 {
     min-height:1200px;
-    background-color:#EFEFEF;
     position:relative;
 }
 .Booking-Main-Body {
-    position: absolute;
     width: 100%;
-    top: 220px;
+    margin-top: 220px;
 }
 .custom-container {
     min-height: 800px;
     background-color: #F5F7F9;
+}
+
+.layout-explore-flight {
+    width: 80%;
+    margin: 20px auto;
 }

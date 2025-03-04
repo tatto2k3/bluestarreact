@@ -8,7 +8,7 @@ import CustomCalendar from './Calendar/CustomCalendar';
 import axios from "axios";
 import Country from './Country/Country';
 import { useSearch } from '../../CustomHooks/SearchContext';
-export default function Booking() {
+export default function Booking({ onSearch }) {
     const [countries, setCountries] = useState([]);
     const [selectedTab, setSelectedTab] = useState("booking");
     const [isOpenCountry, setIsOpenCountry] = useState(false);
@@ -22,7 +22,7 @@ export default function Booking() {
 
     const GetAllCountries = async () => {
         try {
-            const response = await axios.get("http://localhost:8000/api/sanbay/getSanbays");
+            const response = await axios.get("http://localhost:8000/api/airport/getAirports");
             setCountries(response.data);
         } catch (error) {
             console.log(error);
@@ -55,7 +55,6 @@ export default function Booking() {
     {/*Function thay đổi checkbox */ }
     const handleTripTypeChange = (event) => {
         setTripType(event.target.value);
-        console.log(event.target.value);
     };
     const clickedOutside = (event) => {
         if (
@@ -83,6 +82,18 @@ export default function Booking() {
             document.removeEventListener("click", clickedOutsideCountry, true);
         };
     });
+
+    const formatDate = (dateString) => {
+        const parts = dateString.split('-');
+        if (parts.length === 3) {
+            const year = parts[0];
+            const month = parts[1].padStart(2, '0');
+            const day = parts[2].padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+        return dateString;
+    };
+
     return (
         <div className="booking-wrapper">
             {
@@ -259,7 +270,7 @@ export default function Booking() {
                                                     Hành Khách
                                                 </label>
                                                 <div className="input-main">
-                                                    <input type="text" value="1 Guest"
+                                                    <input type="text" value="1"
                                                     />
                                                     <h6 className="airport-name-day booking-body-text-color hiden">
                                                         Hạng vé
@@ -279,7 +290,7 @@ export default function Booking() {
                                                 )}
                                             </div>
                                         </div>
-                                       
+
                                     </div>
                                 </div>
                             </>
@@ -289,14 +300,21 @@ export default function Booking() {
                     <div className="button_container">
                         <Button variant="contained" size="large" startIcon={<SendIcon />} className="custom-button" onClick={() => {
                             setIsLoading(true);
-                            axios.get(`http://localhost:8000/api/flight/searchFlight?fromLocation=${searchInfo.FromLocation}&toLocation=${searchInfo.ToLocation}
-                                &departureDay=${searchInfo.DepartTime}`)
+                            console.log(searchInfo);
+
+                            axios.get(`http://localhost:8000/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}
+                                &departureDay=${formatDate(searchInfo.DepartTime)}`)
                                 .then(res => {
-                                    console.log("data: ", res.data);
-                                    setSearchResult(res.data)
+                                    setSearchResult(res.data);
                                     setIsLoading(false);
+                                    if (onSearch) {
+                                        onSearch(res.data); 
+                                    }
                                 })
-                                .catch(error => console.log(error));
+                                .catch(error => {
+                                    console.log(error);
+                                    setIsLoading(false);
+                                });
                         }}>
                             Tìm chuyến bay
                         </Button>

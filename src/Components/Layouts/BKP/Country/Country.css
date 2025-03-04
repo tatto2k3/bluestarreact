@@ -45,6 +45,13 @@ h5 {
 }
 
 .city_name {
+    font-size: 20px;
+    font-weight: 590;
+    color: #212529;
+}
+
+.airport_name {
+    color: #212529;
+    font-weight: 590;
     font-size: 16px;
-    font-weight: 550;
 }

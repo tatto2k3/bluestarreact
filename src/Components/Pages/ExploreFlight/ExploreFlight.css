@@ -1,0 +1,261 @@
+.explore-flight-title {
+    font-size: 26px !important;
+    font-weight: 400;
+    letter-spacing: normal;
+    line-height: 1.2;
+    color: #333333;
+}
+
+.btn-route {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    appearance: none;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid rgb(173, 165, 152);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: normal;
+    line-height: 1.5;
+    color: rgb(102, 102, 102);
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    text-transform: none;
+    padding: 0rem 10px;
+    height: 32px;
+    position: relative;
+    transition: 0.3s;
+    display: inline-flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    justify-content: center;
+    font-family: OpenSans, sans-serif !important;
+    gap: 8px;
+}
+
+.btn-delete {
+    margin-left: 8px;
+    margin-top: 5px;
+}
+
+.btn-delete-title {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: normal;
+    line-height: 1.5;
+    color: rgb(102, 102, 102);
+    margin: 0px;
+    padding: 0px;
+    display: inline;
+}
+  
+.btn-text {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 345px;
+    overflow: hidden;
+    color: rgb(102, 102, 102);
+}
+  
+.icon-container {
+    align-items: center;
+    font-size: 17px;
+    margin-bottom: 4px;
+}
+
+.button-filter {
+    gap: 10px;
+    display: flex;
+    margin-top: 10px;
+}
+
+.section-flights {
+    margin-top: 20px;
+}
+  
+.section-flights-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2%;
+    width: 100%;
+}
+
+.flight-card {
+    width: 24rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: white;
+    border: 1px solid #e5e7eb;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+    .flight-card {
+        max-width: calc(2.81 / 12* 100%);
+    }
+}
+  
+.flight-image {
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
+}
+  
+.flight-content {
+    padding: 1rem;
+}
+  
+.flight-route {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+  
+.flight-date {
+    color: #4b5563;
+}
+
+.flight-price-info {
+    margin-top: 5px;
+}
+  
+.flight-price-label {
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+    color: #4b5563;
+}
+  
+.popular-flights-price-info {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 150%;
+    color: #00558F;
+}
+
+.flight-price {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #dc2626;
+}
+  
+.flight-type {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+  
+.footer-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.booking-now {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px; 
+    height: 40px;
+    background-color: #f2f4f7; 
+    border-radius: 20%; 
+}
+
+.booking-now svg {
+    width: 20px;
+    height: 20px;
+    color: #00558F;
+}
+
+.booking-now:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.btn-show-more {
+    display: block;
+    margin: 20px auto; /* Căn giữa */
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #00558F;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+.btn-show-more:hover {
+    background-color: #003f6f;
+}
+  
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+  
+.modal.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+  
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: fit-content;
+    max-width: 600px;
+    text-align: center;
+    position: relative;
+    animation: slideDown 0.3s ease-out;
+}
+  
+  /* Hiệu ứng slide-down */
+@keyframes slideDown {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+}
+  
+.modal-search-flight-title-text {
+    color: #00558F;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+}
+
+.btn-search-flight-modal {
+    height: 50px;
+    border-radius: 8px;
+    font-weight: 500;
+    background-color: #4B843F;
+    border: none;
+    color: #FFFFFF;
+    transition: background-color 0.3s ease;
+}
+
+#search-flight-submit-btn {
+    margin-top: 20px;
+}

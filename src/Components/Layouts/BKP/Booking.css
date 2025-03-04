@@ -4,14 +4,16 @@
     height: auto;
     background-color: var(--color-blue);
     border-radius: 30px;
-    z-index: 10000;
+    z-index: 16;
     display: block;
     margin: auto;
     position: absolute;
-    top: -90px;
+    top: -320px;
     left: 50%;
     transform: translateX(-50%);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15); /* Thêm hiệu ứng đổ bóng */
 }
+
 
 .ticket_booking {
     text-align: center;
@@ -193,7 +195,6 @@
     outline: none;
     background: none;
     font-family: ui-monospace;
-    font-style: italic;
 }
 
 .hiden {
@@ -239,11 +240,11 @@
 
 .List_Countries_Wrapper {
     background: #ffffff;
-    margin: 0;
+    margin-top: 15px;
     position: absolute;
     top: 73px;
     max-height: 500px;
-    width: 225px;
+    width: 160%;
     display: flex;
     overflow-y: scroll;
     flex-direction: column;
@@ -251,6 +252,7 @@
     box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.12), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
     padding: 5px;
     border-radius: 10px;
+    z-index: 20;
 }
 
     .List_Countries_Wrapper:hover {

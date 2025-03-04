@@ -16,19 +16,28 @@ export default function Country({
         <div className="country">
             <h5>Việt Nam</h5>
             {countries.map((airport, index) => {
+                console.log(airport)
                 return (
                     <div
                         className="airport_wrapper"
                         key={index}
                         onClick={() => {
                             if (CountryClass === "list_countries") {
-                                setSearchInfo({ ...searchInfo, FromLocation: airport.place });
-                                setAirport({ ...Airport, fromAirport: airport.airportName })
-                                setisHidden({ ...isHidden, fromAirportIsHidden: airport.airportName })
+                                setSearchInfo({
+                                    ...searchInfo,
+                                    FromLocation: airport.place,
+                                    FromLocationId: airport.id 
+                                });
+                                setAirport({ ...Airport, fromAirport: airport.name })
+                                setisHidden({ ...isHidden, fromAirportIsHidden: airport.name })
                             } else if (CountryClass === "list_countries right") {
-                                setSearchInfo({ ...searchInfo, ToLocation: airport.place });
-                                setAirport({ ...Airport, toAirport: airport.airportName })
-                                setisHidden({ ...isHidden, toAirportIsHidden: airport.airportName })
+                                setSearchInfo({
+                                    ...searchInfo,
+                                    ToLocation: airport.place, 
+                                    ToLocationId: airport.id 
+                                });
+                                setAirport({ ...Airport, toAirport: airport.name })
+                                setisHidden({ ...isHidden, toAirportIsHidden: airport.name })
                             }
                             setIsOpenCountry(false);
                         }}
@@ -36,9 +45,9 @@ export default function Country({
                         <div className="airport_item">
                             <div className="airport_city">
                                 <div className="city_name">{airport.place}</div>
-                                <div className="city_code">{airport.airportName}</div>
+                                <div className="city_code">{airport.name}</div>
                             </div>
-                            <div className="airport_name"> {airport.airportId}</div>
+                            <div className="airport_name"> {airport.id}</div>
                         </div>
                     </div>
                 );
