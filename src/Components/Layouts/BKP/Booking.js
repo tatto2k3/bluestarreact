@@ -22,7 +22,7 @@ export default function Booking({ onSearch }) {
 
     const GetAllCountries = async () => {
         try {
-            const response = await axios.get("http://localhost:8000/api/airport/getAirports");
+            const response = await axios.get("https://bluestarbackend.vercel.app/api/airport/getAirports");
             setCountries(response.data);
         } catch (error) {
             console.log(error);
@@ -302,7 +302,7 @@ export default function Booking({ onSearch }) {
                             setIsLoading(true);
                             console.log(searchInfo);
 
-                            axios.get(`http://localhost:8000/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}
+                            axios.get(`https://bluestarbackend.vercel.app/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}
                                 &departureDay=${formatDate(searchInfo.DepartTime)}`)
                                 .then(res => {
                                     setSearchResult(res.data);
