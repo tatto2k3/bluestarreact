@@ -2,7 +2,7 @@
 .Ticket-Wrapper {
     margin-top: 10px;
     height: 130px;
-    background-color: #fff;
+    background-color: #efefef;
     border-radius: 15px;
     display: flex;
 }
@@ -44,6 +44,7 @@
 .Logo-Wrapper {
     background-color: #F5F7F9;
     height: 120px;
+    width: 27%;
     margin: 5px;
     border-radius: 15px;
     display: flex;
@@ -148,7 +149,7 @@
     position: absolute;
     top: 50%;
     width: 45px;
-    border-top: 1px dashed #dbecef;
+    border-top: 1px dashed #00d9ff;
     right: -45px;
     transform: translateY(-50%);
     z-index: 1; /* Đảm bảo đường nét đứt hiển thị phía sau thẻ div */
@@ -159,7 +160,7 @@
     position: absolute;
     top: 50%;
     width: 45px;
-    border-top: 1px dashed #dbecef;
+    border-top: 1px dashed #00d9ff;
     left: -45px;
     transform: translateY(-50%);
     z-index: 1; /* Đảm bảo đường nét đứt hiển thị phía sau thẻ div */
@@ -187,12 +188,17 @@
 }
 
 .price-value {
-    font-size: 20px;
+    font-size: 25px;
     font-family: Inter;
     font-weight: bold;
-    margin: 0
+    margin: 0;
+    color: red;
 }
 
 .price-value-VND {
     margin-left: 8px;
+    color: red;
+    font-size: 25px;
+    font-family: Inter;
+    font-weight: bold;
 }

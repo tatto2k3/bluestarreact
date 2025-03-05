@@ -31,7 +31,7 @@ const MayBay = () => {
         // Lấy danh sách khách hàng từ API hoặc nguồn dữ liệu khác
         const fetchData = async () => {
             try {
-                const response = await fetch("http://localhost:8000/api/plane/getPlanes");
+                const response = await fetch("https://bluestarbackend.vercel.app/api/api/plane/getPlanes");
                 const data = await response.json();
                 setPlanes(data);
             } catch (error) {
@@ -58,7 +58,7 @@ const MayBay = () => {
     const handleShowInfo = async () => {
         try {
             if (selectedPlanes.length > 0) {
-                const response = await fetch(`http://localhost:8000/api/plane/getPlaneDetails?plIds=${selectedPlanes.join(',')}`);
+                const response = await fetch(`https://bluestarbackend.vercel.app/api/api/plane/getPlaneDetails?plIds=${selectedPlanes.join(',')}`);
                 const data = await response.json();
 
                 // Chuyển hướng sang trang sửa khách hàng và truyền thông tin khách hàng
@@ -82,7 +82,7 @@ const MayBay = () => {
     const handleDelete = async () => {
         setShowConfirmation(false);
             try {
-                const response = await axios.delete(`http://localhost:8000/api/plane/deletePlane/${selectedPlanes.join(',')}`, {
+                const response = await axios.delete(`https://bluestarbackend.vercel.app/api/api/plane/deletePlane/${selectedPlanes.join(',')}`, {
                     data: selectedPlanes, // Pass the array as data
                     headers: {
                         'Content-Type': 'application/json',
@@ -118,7 +118,7 @@ const MayBay = () => {
     const handleSearch = async () => {
         if (searchKeyword != "") {
             try {
-                const response = await fetch(`http://localhost:8000/api/plane/searchPlanes?searchKeyword=${searchKeyword}`);
+                const response = await fetch(`https://bluestarbackend.vercel.app/api/api/plane/searchPlanes?searchKeyword=${searchKeyword}`);
                 const data = await response.json();
                 setPlanes(data);
             } catch (error) {
@@ -127,7 +127,7 @@ const MayBay = () => {
         }
         else {
             try {
-                const response = await fetch("http://localhost:8000/api/plane/getPlanes");
+                const response = await fetch("https://bluestarbackend.vercel.app/api/api/plane/getPlanes");
                 const data = await response.json();
                 setPlanes(data);
             } catch (error) {

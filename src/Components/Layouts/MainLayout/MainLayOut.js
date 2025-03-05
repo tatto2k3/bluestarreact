@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
-import Header from '../Header/Header';
+import HeaderReview from '../HeaderReview/HeaderReview';
 import "./MainLayout.css"
 import { useSearch } from '../../CustomHooks/SearchContext';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -20,14 +20,7 @@ export default function MainLayOut({ children }) {
         total1, setTotal1, foodItems1, setFoodItems1, total2, setTotal2,
         foodItems2, setFoodItems2, addFoodItem1, calculateTotal1, addFoodItem2, calculateTotal2, passengerInfo,
         setPassengerInfo, seatId, setSeatId, luggaeId, setLuggageId] = useSearch();
-
-    function removeTrailingZeros(number) {
-        const fixedNumber = number.toFixed(4);
-        const trimmedNumber = parseFloat(fixedNumber);
-
-        return trimmedNumber;
-    }
-
+ 
     function formatTimeDuration(departureTime, arrivalTime) {
         const departureDate = new Date(`2000-01-01T${departureTime}`);
         const arrivalDate = new Date(`2000-01-01T${arrivalTime}`);
@@ -44,14 +37,13 @@ export default function MainLayOut({ children }) {
         return formattedDuration;
     }
     useEffect(() => {
-
-        const total1 = calculateTotal1(removeTrailingZeros(departFlight?.originalPrice));
+        const total1 = calculateTotal1(departFlight?.originalPrice);
         console.log('Total:', total1);
         setTotal1(total1)
     }, [foodItems1]);
     useEffect(() => {
         if (tripType === "roundTrip") {
-            const total2 = calculateTotal2(removeTrailingZeros(ariveFlight?.originalPrice));
+            const total2 = calculateTotal2(ariveFlight?.originalPrice);
             console.log('Total:', total2);
             setTotal2(total2)
         }
@@ -59,11 +51,9 @@ export default function MainLayOut({ children }) {
 
     return (
         <>
-            <Header />
+            <HeaderReview />
             <div className="body-main">
-                <Booking />
-                {/*Booking main*/}
-                <div className="Booking-Main-Body">
+                <div className="Booking-Main-Body-Not-Booking">
                     <Container
                         maxWidth="lg"
                         className="custom-container"
@@ -302,7 +292,7 @@ export default function MainLayOut({ children }) {
                                                         Ticket
                                                     </p>
                                                     <p>
-                                                        {removeTrailingZeros(departFlight.originalPrice)} VND
+                                                        {departFlight.originalPrice} VND
                                                     </p>
                                                 </li>
                                                 {
@@ -349,7 +339,7 @@ export default function MainLayOut({ children }) {
                                                             Ticket
                                                         </p>
                                                         <p>
-                                                            {removeTrailingZeros(departFlight.originalPrice)} VND
+                                                            {departFlight.originalPrice} VND
                                                         </p>
                                                     </li>
                                                     {
@@ -394,7 +384,7 @@ export default function MainLayOut({ children }) {
                                                             Ticket
                                                         </p>
                                                         <p>
-                                                            {removeTrailingZeros(ariveFlight.originalPrice)} VND
+                                                            {ariveFlight.originalPrice} VND
                                                         </p>
                                                     </li>
                                                     {

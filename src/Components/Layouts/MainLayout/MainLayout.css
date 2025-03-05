@@ -34,14 +34,8 @@ h6 {
     align-items: center;
 }
 
-    .logo-left > h6 {
-        margin-left: 15px;
-    }
-
-.Logo-Image-ticketPage {
-}
-
-.ticket-class {
+.logo-left > h6 {
+    margin-left: 15px;
 }
 
 .schedule.ticketPage {
@@ -103,9 +97,9 @@ schedule-round-left.ticketPage {
     padding-right: 15px;
 }
 
-    .page-title.active {
-        color: #7CBAEF;
-    }
+.page-title.active {
+    color: #7CBAEF;
+}
 
 .main-layout-nav:hover {
     cursor: pointer;
@@ -180,4 +174,8 @@ schedule-round-left.ticketPage {
 
 .mt-20 {
     margin-top: 20px;
+}
+
+.Booking-Main-Body-Not-Booking {
+    margin-top: 60px;
 }

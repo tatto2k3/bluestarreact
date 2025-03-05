@@ -14,7 +14,7 @@ const SearchTicket = () => {
         console.log("Data :", searchInfo.tenKhachHang);
         console.log("Data :", searchInfo.maChuyenBay);
         try {
-            const response = await fetch(`http://localhost:8000/api/ticket/GetTicketReviewDetails?name=${searchInfo.tenKhachHang}&flyId=${searchInfo.maChuyenBay}`);
+            const response = await fetch(`https://bluestarbackend.vercel.app/api/api/ticket/GetTicketReviewDetails?name=${searchInfo.tenKhachHang}&flyId=${searchInfo.maChuyenBay}`);
             const data = await response.json();
 
             console.log("Data from API:", data);

@@ -66,7 +66,7 @@ const SuaSanBay = () => {
             }
 
             // Sử dụng fetch để thực hiện yêu cầu PUT
-            const response = await fetch('http://localhost:8000/api/sanbay/updateSanbay', {
+            const response = await fetch('https://bluestarbackend.vercel.app/api/api/sanbay/updateSanbay', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

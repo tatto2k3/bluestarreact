@@ -31,7 +31,7 @@ const MaGiamGia = () => {
         // Lấy danh sách khách hàng từ API hoặc nguồn dữ liệu khác
         const fetchData = async () => {
             try {
-                const response = await fetch("http://localhost:8000/api/discount/getDiscounts");
+                const response = await fetch("https://bluestarbackend.vercel.app/api/api/discount/getDiscounts");
                 const data = await response.json();
                 setDiscounts(data);
             } catch (error) {
@@ -58,7 +58,7 @@ const MaGiamGia = () => {
     const handleShowInfo = async () => {
         try {
             if (selectedDiscounts.length > 0) {
-                const response = await fetch(`http://localhost:8000/api/discount/getDiscountDetails?dIds=${selectedDiscounts.join(',')}`);
+                const response = await fetch(`https://bluestarbackend.vercel.app/api/api/discount/getDiscountDetails?dIds=${selectedDiscounts.join(',')}`);
                 const data = await response.json();
 
                 // Chuyển hướng sang trang sửa khách hàng và truyền thông tin khách hàng
@@ -83,7 +83,7 @@ const MaGiamGia = () => {
         setShowConfirmation(false);
         if (selectedDiscounts.length > 0) {
                 try {
-                    const response = await axios.delete(`http://localhost:8000/api/discount/deleteDiscount/${selectedDiscounts.join(',')}`, {
+                    const response = await axios.delete(`https://bluestarbackend.vercel.app/api/api/discount/deleteDiscount/${selectedDiscounts.join(',')}`, {
                         data: selectedDiscounts, // Pass the array as data
                         headers: {
                             'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ const MaGiamGia = () => {
     const handleSearch = async () => {
         if (searchKeyword != "") {
             try {
-                const response = await fetch(`http://localhost:8000/api/discount/searchDiscounts?searchKeyword=${searchKeyword}`);
+                const response = await fetch(`https://bluestarbackend.vercel.app/api/api/discount/searchDiscounts?searchKeyword=${searchKeyword}`);
                 const data = await response.json();
                 setDiscounts(data);
             } catch (error) {
@@ -129,7 +129,7 @@ const MaGiamGia = () => {
         }
         else {
             try {
-                const response = await fetch("http://localhost:8000/api/discount/getDiscounts");
+                const response = await fetch("https://bluestarbackend.vercel.app/api/api/discount/getDiscounts");
                 const data = await response.json();
                 setDiscounts(data);
             } catch (error) {

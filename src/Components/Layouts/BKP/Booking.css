@@ -255,6 +255,88 @@
     z-index: 20;
 }
 
-    .List_Countries_Wrapper:hover {
-        cursor: pointer;
-    }
+.List_Countries_Wrapper:hover {
+    cursor: pointer;
+}
+
+.passenger-div {
+    position: absolute;
+    right: 9%;
+    top: 170px;
+    background-color: white;
+    padding: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 260px;
+    z-index: 10;
+}
+  
+.passenger-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+  
+.passenger-card button {
+    border: 1px solid #ccc;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+  
+.passenger-card button:hover {
+    background-color: #e2e6ea;
+    border-color: #bbb;
+}
+  
+.passenger-card span {
+    min-width: 30px;
+    text-align: center;
+}
+  
+.passenger-card .fa-circle-question {
+    font-size: 12px;
+    color: blue;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+  
+.tooltip-text {
+    visibility: hidden;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+  
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.passenger-count {
+    width: 90px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

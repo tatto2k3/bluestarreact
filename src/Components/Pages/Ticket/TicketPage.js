@@ -73,9 +73,7 @@ export default function TicketPage() {
 
                     </Grid>
                 </Grid>
-
             </div>
-
         </Paper>
     )
 }

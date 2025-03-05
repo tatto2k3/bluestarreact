@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import "./SearchPage.css";
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -17,7 +17,7 @@ import FlightTakeoffOutlinedIcon from '@mui/icons-material/FlightTakeoffOutlined
 import FlightLandOutlinedIcon from '@mui/icons-material/FlightLandOutlined';
 import { useNavigate } from 'react-router-dom';
 export default function SearchPage() {
-    const [value, setValue] = React.useState([1, 300]);
+    const [value, setValue] = React.useState([0, 5000000]);
     const [minPrice, setMinPrice] = useState(value[0]);
     const [maxPrice, setMaxPrice] = useState(value[1]);
     const [searchResult, setSearchResult, isLoading, setIsLoading, searchInfo,
@@ -43,7 +43,7 @@ export default function SearchPage() {
                 setDepartFlight(flight);
                 setActiveButton("Arrive");
                 setIsLoading(true);
-                axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.ToLocation}&toLocation=${searchInfo.FromLocation}&departureDay=${searchInfo.ComeBackTime}`)
+                axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.ToLocationId}&toLocation=${searchInfo.FromLocationId}&departureDay=${searchInfo.ComeBackTime}`)
                     .then(res => {
                         setSearchResult(res.data)
                         setIsLoading(false);
@@ -63,14 +63,10 @@ export default function SearchPage() {
         }
     };
 
-    function convertUSDToVND(usdAmount, exchangeRate = 23000) {
-        const vndAmount = usdAmount * exchangeRate;
-        return vndAmount;
-    }
     function HandleReset() {
         setIsLoading(true);
         setActiveTimeLine(null);
-        axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.FromLocation}&toLocation=${searchInfo.ToLocation}
+        axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}
                                 &departureDay=${searchInfo.DepartTime}`)
             .then(res => {
                 setSearchResult(res.data)
@@ -79,11 +75,12 @@ export default function SearchPage() {
             })
             .catch(error => console.log(error));
     }
+
     function queryAPI(depatureTime, arrivalTime) {
         if (searchInfo.FromLocation != null && searchInfo.ToLocation != null && searchInfo.DepartTime != null && searchInfo.ComeBackTime != null) {
             if (activeButton === "Depart") {
                 setIsLoading(true);
-                axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.FromLocation}&toLocation=${searchInfo.ToLocation}&departureTime=${depatureTime}&arrivalTime=${arrivalTime}
+                axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}&departureTime=${depatureTime}&arrivalTime=${arrivalTime}
                                 &departureDay=${searchInfo.DepartTime}`)
                     .then(res => {
                         setSearchResult(res.data)
@@ -94,7 +91,7 @@ export default function SearchPage() {
             }
             else {
                 setIsLoading(true);
-                axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.ToLocation}&toLocation=${searchInfo.FromLocation}&departureTime=${depatureTime}&arrivalTime=${arrivalTime}
+                axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.ToLocationId}&toLocation=${searchInfo.FromLocationId}&departureTime=${depatureTime}&arrivalTime=${arrivalTime}
                                     &departureDay=${searchInfo.ComeBackTime}`)
                     .then(res => {
                         setSearchResult(res.data)
@@ -105,6 +102,32 @@ export default function SearchPage() {
             }
         }
     }
+
+    useEffect(() => {
+        if (searchInfo.FromLocation != null && searchInfo.ToLocation != null && searchInfo.DepartTime != null && searchInfo.ComeBackTime != null) {
+            if (activeButton === "Depart") {
+                setIsLoading(true);
+                axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}&departureDay=${searchInfo.DepartTime}`)
+                    .then(res => {
+                        setSearchResult(res.data)
+                        setIsLoading(false);
+
+                    })
+                    .catch(error => console.log(error));
+            }
+            else {
+                setIsLoading(true);
+                axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.ToLocationId}&toLocation=${searchInfo.FromLocationId}&departureDay=${searchInfo.ComeBackTime}`)
+                    .then(res => {
+                        setSearchResult(res.data)
+                        setIsLoading(false);
+
+                    })
+                    .catch(error => console.log(error));
+            }
+        }
+    }, [activeButton]);
+
     return (<Grid container spacing={2}>
         <Grid item md={4}>
             < Paper className="custom-paper">
@@ -136,22 +159,20 @@ export default function SearchPage() {
                                         00:00 - 11:59
                                     </span>
                                 </div>
-
                             </Grid>
                             <Grid item sm={6}>
-                                <div className={`time-line ${activeTimeLine === 'Night' ? 'active' : ''}`}
-                                    onClick={() => handleTimeLineClick('Night', '18:00', '23:59')}>
+                                <div className={`time-line ${activeTimeLine === 'Noon' ? 'active' : ''}`}
+                                    onClick={() => handleTimeLineClick('Noon', '12:00', '14:59')}>
                                     <div className="filter-icon">
-                                        <DarkModeIcon />
+                                        <LightModeOutlinedIcon />
                                     </div>
                                     <div className="filter-time">
-                                        Buổi tối
+                                        Buổi trưa
                                     </div>
                                     <span className="filter-time-detail">
-                                        18:00 - 23:59
+                                        12:00 - 14:59
                                     </span>
                                 </div>
-
                             </Grid>
                             <Grid item sm={6}>
                                 <div className={`time-line ${activeTimeLine === 'Afternoon' ? 'active' : ''}`}
@@ -169,19 +190,18 @@ export default function SearchPage() {
 
                             </Grid>
                             <Grid item sm={6}>
-                                <div className={`time-line ${activeTimeLine === 'Noon' ? 'active' : ''}`}
-                                    onClick={() => handleTimeLineClick('Noon', '12:00', '14:59')}>
+                                <div className={`time-line ${activeTimeLine === 'Night' ? 'active' : ''}`}
+                                    onClick={() => handleTimeLineClick('Night', '18:00', '23:59')}>
                                     <div className="filter-icon">
-                                        <LightModeOutlinedIcon />
+                                        <DarkModeIcon />
                                     </div>
                                     <div className="filter-time">
-                                        Buổi trưa
+                                        Buổi tối
                                     </div>
                                     <span className="filter-time-detail">
-                                        12:00 - 14:59
+                                        18:00 - 23:59
                                     </span>
                                 </div>
-
                             </Grid>
                         </Grid>
                     </div>
@@ -227,22 +247,22 @@ export default function SearchPage() {
         </Grid>
         <Grid item md={8}>
             <div className="sort_header">
-            
+
                 {searchResult.flights && searchResult.flights.length > 0 && searchResult.flights[0] && (
                     <div className="search-result-header">
                         <h6>
-                            We have {searchResult.total_flight} tickets from {searchResult.flights[0].fromLocation} to {searchResult.flights[0].toLocation}
+                            Chúng tôi {searchResult.total_flight} vé từ {searchResult.flights[0].from_airport.place} đến {searchResult.flights[0].to_airport.place}
                         </h6>
                         {
                             tripType === "roundTrip" && (
                                 <div>
                                     <Button variant={activeButton === 'Depart' ? 'contained' : 'outlined'} size="large" startIcon=
-                                        {<FlightTakeoffOutlinedIcon />} color="success" className="custom-button-search" >
-                                        Depart
+                                        {<FlightTakeoffOutlinedIcon />} color="success" className="custom-button-search" onClick={() => setActiveButton("Depart")}>
+                                        Chuyến đi
                                     </Button>
                                     <Button variant={activeButton === 'Arrive' ? 'contained' : 'outlined'} size="large"
-                                        startIcon={<FlightLandOutlinedIcon />} className="custom-button-search" >
-                                        Arrive
+                                        startIcon={<FlightLandOutlinedIcon />} className="custom-button-search" onClick={() => setActiveButton("Arrive")}>
+                                        Chuyến về
                                     </Button>
                                 </div>
                             )
@@ -255,13 +275,13 @@ export default function SearchPage() {
             <div className="ticker-result-wrapper">
                 {
                     !isLoading ? (
-                        searchResult.flight && searchResult.flight.length > 0 ? (
+                        searchResult.flights && searchResult.flights.length > 0 ? (
                             <div>
-                                {searchResult.flight.map((fl, index) => {
+                                {searchResult.flights.map((fl, index) => {
                                     const originalPrice = parseFloat(fl.originalPrice);
                                     console.log(originalPrice)
 
-                                    if (!isNaN(originalPrice) && originalPrice >= convertUSDToVND(minPrice) && originalPrice <= convertUSDToVND(maxPrice)) {
+                                    if (!isNaN(originalPrice) && originalPrice >= minPrice && originalPrice <= maxPrice) {
                                         return (
                                             <TicketResult key={index} index={index} flight={fl} handleClick={() => handleTicketClick(fl)} />
                                         );

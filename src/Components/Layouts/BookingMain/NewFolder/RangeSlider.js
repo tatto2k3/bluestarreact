@@ -16,10 +16,10 @@ export default function RangeSlider({ value, setValue, setMinPrice, setMaxPrice 
                 value={value}
                 onChange={handleChange}
                 valueLabelDisplay="auto"
-                min={20} // Giá trị tối thiểu
-                max={1000} // Giá trị tối đa
-                step={2}
-                default={[20, 700]}
+                min={0}
+                max={20000000} 
+                step={500000}
+                default={[0, 5000000]}
             />
         </Box>
     );

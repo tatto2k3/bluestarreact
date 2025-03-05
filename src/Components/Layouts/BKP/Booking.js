@@ -8,13 +8,18 @@ import CustomCalendar from './Calendar/CustomCalendar';
 import axios from "axios";
 import Country from './Country/Country';
 import { useSearch } from '../../CustomHooks/SearchContext';
-export default function Booking({ onSearch }) {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
+
+export default function Booking({ onSearch, setIsLoadingLayout, setIsSearchVisible }) {
     const [countries, setCountries] = useState([]);
     const [selectedTab, setSelectedTab] = useState("booking");
     const [isOpenCountry, setIsOpenCountry] = useState(false);
     const [CountryClass, setCountryClass] = useState("");
     const [searchResult, setSearchResult, isLoading, setIsLoading, searchInfo, setSearchInfo, tripType, setTripType, airport, setAirport] = useSearch();
     const countryElement = useRef()
+    const passengerRef = useRef(null);
+
 
     const handleTabChange = (tab) => {
         setSelectedTab(tab);
@@ -93,6 +98,35 @@ export default function Booking({ onSearch }) {
         }
         return dateString;
     };
+
+    const [showPassenger, setShowPassenger] = useState(false);
+    const [adults, setAdults] = useState(1);
+    const [children, setChildren] = useState(0);
+
+    const handleChange = (type, operation) => {
+        if (type === "adults") {
+            setAdults((prev) => Math.max(1, operation === "increase" ? prev + 1 : prev - 1));
+        } else if (type === "children") {
+            setChildren((prev) => Math.max(0, operation === "increase" ? prev + 1 : prev - 1));
+        }
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (passengerRef.current && !passengerRef.current.contains(event.target)) {
+            setShowPassenger(false);
+          }
+        };
+    
+        if (showPassenger) {
+          document.addEventListener("mousedown", handleClickOutside);
+        }
+    
+        return () => {
+          document.removeEventListener("mousedown", handleClickOutside);
+        };
+      }, [showPassenger]);
+
 
     return (
         <div className="booking-wrapper">
@@ -265,19 +299,46 @@ export default function Booking({ onSearch }) {
                                             }
 
                                             {/*passenger*/}
-                                            <div className="booking-location-time booking-border-left-half">
-                                                <label className="Up booking-body-text-color">
-                                                    Hành Khách
-                                                </label>
+                                            <div
+                                                className="booking-location-time booking-border-left-half cursor-pointer"
+                                                onClick={() => setShowPassenger(!showPassenger)}
+                                            >
+                                                <label className="Up booking-body-text-color">Hành Khách</label>
                                                 <div className="input-main">
-                                                    <input type="text" value="1"
+                                                    <input
+                                                        type="text"
+                                                        value={`${adults} Người lớn, ${children} Trẻ em`}
+                                                        readOnly
                                                     />
-                                                    <h6 className="airport-name-day booking-body-text-color hiden">
-                                                        Hạng vé
-                                                    </h6>
                                                 </div>
-
                                             </div>
+
+                                            {/* Hiển thị hộp chọn hành khách */}
+                                            {showPassenger && (
+                                                <div ref={passengerRef} className="passenger-div">
+                                                    <div className="passenger-card">
+                                                        <span>Người lớn</span>
+                                                        <div className="mt-2 passenger-count">
+                                                            <button className="border px-2" onClick={() => handleChange("adults", "decrease")}>-</button>
+                                                            <span>{adults}</span>
+                                                            <button className="border px-2" onClick={() => handleChange("adults", "increase")}>+</button>
+                                                        </div>
+                                                    </div>
+                                                    <div className="mt-2 passenger-card">
+                                                        <span className="tooltip-container">
+                                                            Trẻ em
+                                                            <FontAwesomeIcon icon={faCircleQuestion} className="ml-1" />
+                                                            <span className="tooltip-text">Dưới 11 tuổi</span>
+                                                        </span>
+
+                                                        <div className="passenger-count">
+                                                            <button className="border px-2" onClick={() => handleChange("children", "decrease")}>-</button>
+                                                            <span>{children}</span>
+                                                            <button className="border px-2" onClick={() => handleChange("children", "increase")}>+</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
                                             {/*Calendar*/}
                                             <div ref={timeElement} className={timelineClass}>
                                                 {isOpenTimeLine && (
@@ -290,7 +351,6 @@ export default function Booking({ onSearch }) {
                                                 )}
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </>
@@ -299,21 +359,23 @@ export default function Booking({ onSearch }) {
 
                     <div className="button_container">
                         <Button variant="contained" size="large" startIcon={<SendIcon />} className="custom-button" onClick={() => {
+                            setIsLoadingLayout(true);
+                            setIsSearchVisible(true);
                             setIsLoading(true);
                             console.log(searchInfo);
-
                             axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}
                                 &departureDay=${formatDate(searchInfo.DepartTime)}`)
                                 .then(res => {
                                     setSearchResult(res.data);
+                                    setIsLoadingLayout(false);
                                     setIsLoading(false);
                                     if (onSearch) {
-                                        onSearch(res.data); 
+                                        onSearch(res.data);
                                     }
                                 })
                                 .catch(error => {
                                     console.log(error);
-                                    setIsLoading(false);
+                                    setIsLoadingLayout(false);
                                 });
                         }}>
                             Tìm chuyến bay

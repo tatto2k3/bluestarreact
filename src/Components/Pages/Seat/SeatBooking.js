@@ -17,7 +17,7 @@ export default function SeatBooking() {
     console.log('Seat ID', seatId)
     useEffect(() => {
         // Fetch data from the API using Axios
-        axios.get('http://localhost:8000/api/seat/getSeatByFlight?FlightId=F0000055')
+        axios.get('https://bluestarbackend.vercel.app/api/api/seat/getSeatByFlight?FlightId=F0000055')
             .then(response => {
                 // Set the fetched data to the state
                 setSeat(response.data);

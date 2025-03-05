@@ -1,10 +1,7 @@
-﻿
-
-.navbar img {
+﻿.navbar img {
     width: 60px;
     margin-left: 10px;
 }
-
 
 .navbar-links {
     list-style: none;
@@ -117,4 +114,34 @@
     .navbar img {
         width: 40px;
     }
+}
+
+
+.header-body {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 65vh;
+}
+
+.header-image {
+    width: 50%;
+}
+
+.box-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    background-color: rgba(255, 255, 255, 0.8); 
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.refx-title {
+    color: #ff0018;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
 }

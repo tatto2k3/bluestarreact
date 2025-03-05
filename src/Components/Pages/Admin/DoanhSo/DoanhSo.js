@@ -48,7 +48,7 @@ const DoanhSo = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch("http://localhost:8000/api/doanhso/GetDetails");
+                const response = await fetch("https://bluestarbackend.vercel.app/api/api/doanhso/GetDetails");
                 const data = await response.json();
                 console.log(data);
                 setDetails(data);
@@ -64,7 +64,7 @@ const DoanhSo = () => {
 
     const fetchDoanhSoData = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/api/doanhso/GetDoanhSo?year=${year}`);
+            const response = await fetch(`https://bluestarbackend.vercel.app/api/api/doanhso/GetDoanhSo?year=${year}`);
             const data = await response.json();
             setChartData(data);
         } catch (error) {
@@ -84,12 +84,12 @@ const DoanhSo = () => {
 
             if (reportType === "nam") {
                 console.log("hihi");
-                response = await fetch(`http://localhost:8000/api/doanhso/GetDoanhThuNam?year=${searchData.year}`);
+                response = await fetch(`https://bluestarbackend.vercel.app/api/api/doanhso/GetDoanhThuNam?year=${searchData.year}`);
                 console.log(response);
                 console.log("hoho");
 
             } else {
-                response = await fetch(`http://localhost:8000/api/doanhso/GetDoanhThuThang?year=${searchData.year}&month=${searchData.month}`);
+                response = await fetch(`https://bluestarbackend.vercel.app/api/api/doanhso/GetDoanhThuThang?year=${searchData.year}&month=${searchData.month}`);
             }
 
             if (!response.ok) {
