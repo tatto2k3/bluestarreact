@@ -1,13 +1,13 @@
 ﻿﻿@import url(../../Fonts/font.css);
 .seat-paper {
-    background-color: #fff;
-    border-radius: 15px !important;
+    padding: 20px;
+    text-align: center;
     margin-top: 15px;
 }
 
 .plane-wrapper {
-    padding: 15px;
     display: flex;
+    margin-top: 20px;
 }
 
 .plane-body {
@@ -43,27 +43,94 @@
 }
 
 .seat-item {
-    width: 15px;
-    height: 15px;
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 10px;
+    width: 37px;
+    height: 30px;
+    background-color: #ffffff;
+    border: 2px solid #333;
+    border-radius: 5px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-size: 12px;
-    font-family: Inter;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .seat-item {
+        max-width: 25px; /* Giảm kích thước ghế trên màn hình nhỏ */
+        aspect-ratio: 4 / 3;
+    }
+}
+
+/* Responsive cho màn hình rất nhỏ (mobile) */
+@media (max-width: 480px) {
+    .seat-item {
+        max-width: 15px; /* Giảm kích thước hơn trên điện thoại */
+        aspect-ratio: 4 / 3;
+    }
+}
+
+.seat-item.active {
+    background-color: #4CAF50;
+    color: white;
+    border-color: #388E3C;
+}
+
+.seat-item:hover {
+    background-color: #ddd;
+}
+
+.seat-container {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 10px;
+}
+
+/* Cột ghế */
+.seat-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+    
+.business-seat {
+    background-color: #ff6600 ; /* Màu khác cho hạng ghế 1 */
+    color: white;
     font-weight: bold;
 }
 
-    .seat-item:hover {
-        cursor: pointer;
-        background-color: #58a7ff;
-        color: #fff;
-    }
+.seat-legend {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 15px;
+}
 
-    .seat-item.active {
-        cursor: pointer;
-        background-color: #58a7ff;
-        color: #fff;
-    }
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.legend-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+}
+
+.normal-seat {
+    border: 2px solid #333;
+}
+
+.business-seat {
+    background-color: #ff6600; 
+    border: 2px solid #333;
+    color: white;
+}
+
+.selected-seat {
+    background-color: #ffcc00 !important; 
+    border: 2px solid #d4a100;
+}

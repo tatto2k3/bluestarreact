@@ -21,7 +21,7 @@ h6 {
 
 .Logo-Wrapper-ticketPage {
     background-color: #EFEFEF;
-    padding: 12px;
+    padding: 8px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     display: flex;
@@ -36,6 +36,8 @@ h6 {
 
 .logo-left > h6 {
     margin-left: 15px;
+    color: #007bff;
+    font-size: large;
 }
 
 .schedule.ticketPage {
@@ -91,7 +93,7 @@ schedule-round-left.ticketPage {
 }
 
 .page-title {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     font-family: ui-monospace;
     padding-right: 15px;
@@ -114,7 +116,6 @@ schedule-round-left.ticketPage {
 .fare-header {
     font-size: 18px;
     font-weight: 500;
-    font-family: ui-monospace;
     padding: 15px;
     border-bottom: 1px solid #efefef;
 }
@@ -129,7 +130,6 @@ schedule-round-left.ticketPage {
     color: #808080;
     display: flex;
     justify-content: space-between;
-    font-family: ui-monospace;
     padding-top: 10px;
 }
 

@@ -9,45 +9,72 @@ import HeaderReview from '../HeaderReview/HeaderReview';
 import "./MainLayout.css"
 import { useSearch } from '../../CustomHooks/SearchContext';
 import { useNavigate, useLocation } from 'react-router-dom';
+import logo from '../../../assets/logo2.PNG';
 
 export default function MainLayOut({ children }) {
-    const pages = ["Travel Details", "Seat Reservation", "Review", "Payment"];
+    const pages = ["Thông tin hành khách", "Thông tin đặt chỗ", "Xác nhận", "Thanh toán"];
     const navigate = useNavigate();
-    const [isActive, setIsActive] = useState("Travel Details");
+    const [isActive, setIsActive] = useState("Thông tin hành khách");
     const location = useLocation();
     const [searchResult, setSearchResult, isLoading, setIsLoading, searchInfo,
         setSearchInfo, tripType, setTripType, airport, setAirport, departFlight, setDepartFlight, ariveFlight, setArriveFlight,
         total1, setTotal1, foodItems1, setFoodItems1, total2, setTotal2,
         foodItems2, setFoodItems2, addFoodItem1, calculateTotal1, addFoodItem2, calculateTotal2, passengerInfo,
         setPassengerInfo, seatId, setSeatId, luggaeId, setLuggageId] = useSearch();
- 
+
+    useEffect(() => {
+        const savedDepartFlight = localStorage.getItem('departFlight');
+        if (savedDepartFlight) {
+            setDepartFlight(JSON.parse(savedDepartFlight));
+        }
+
+        const savedAriveFlight = localStorage.getItem('arriveFlight');
+        if (savedAriveFlight) {
+            setArriveFlight(JSON.parse(savedAriveFlight));
+        }
+    }, []);
+
+    useEffect(() => {
+        if (departFlight) {
+            const total1 = calculateTotal1(calculateTickerPrice(Math.floor(departFlight.originalPrice)));
+            console.log('Total:', total1);
+            setTotal1(total1);
+        }
+    }, [departFlight]);
+
+    useEffect(() => {
+        if (tripType === "roundTrip" && ariveFlight) {
+            const total2 = calculateTotal2(Math.floor(ariveFlight.originalPrice));
+            console.log('Total:', total2);
+            setTotal2(total2);
+        }
+    }, [ariveFlight, tripType]); 
+
+
+    const formatTimeFromDB = (timeString) => {
+        if (timeString) return timeString.split(':').slice(0, 2).join(':');
+    };
+
     function formatTimeDuration(departureTime, arrivalTime) {
         const departureDate = new Date(`2000-01-01T${departureTime}`);
         const arrivalDate = new Date(`2000-01-01T${arrivalTime}`);
 
         const durationInMinutes = (arrivalDate - departureDate) / (1000 * 60);
-        const hours = Math.floor(durationInMinutes / 60);
-        const minutes = durationInMinutes % 60;
+        const hoursDecimal = (durationInMinutes / 60).toFixed(2);
 
-        let formattedDuration = `${hours} hr`;
-        if (minutes > 0) {
-            formattedDuration += ` ${minutes} min`;
-        }
-
-        return formattedDuration;
+        return `${hoursDecimal} giờ`;
     }
-    useEffect(() => {
-        const total1 = calculateTotal1(departFlight?.originalPrice);
-        console.log('Total:', total1);
-        setTotal1(total1)
-    }, [foodItems1]);
-    useEffect(() => {
-        if (tripType === "roundTrip") {
-            const total2 = calculateTotal2(ariveFlight?.originalPrice);
-            console.log('Total:', total2);
-            setTotal2(total2)
+
+    const formattedPrice = (price) => {
+        return price?.toLocaleString('vi-VN'); 
+    };
+
+    const calculateTickerPrice = (price) => {
+        const numberTickets = localStorage.getItem('numberTickets');
+        if (numberTickets) {
+            return parseInt(numberTickets) * price;
         }
-    }, [foodItems2]);
+    }
 
     return (
         <>
@@ -66,11 +93,11 @@ export default function MainLayOut({ children }) {
                                             <div className="Logo-Wrapper-ticketPage">
                                                 <div className="logo-left">
                                                     <div className="Logo-Image-ticketPage">
-                                                        <img src="https://www.vietjetair.com/static/media/vj-logo.0f71c68b.svg" />
+                                                        <img src={logo} style={{ width: '40px' }} className='logo-rotate' />
                                                     </div>
                                                     <h6>Bluestar Air</h6>
                                                 </div>
-                                                
+
                                             </div>
                                             <div className="schedule ticketPage">
                                                 <div className="schedule-depart ticketPage">
@@ -79,7 +106,7 @@ export default function MainLayOut({ children }) {
                                                     </p>
                                                     <h5 className="schedule-time">
                                                         {
-                                                            departFlight.departureTime
+                                                            formatTimeFromDB(departFlight.departureTime)
                                                         }
                                                     </h5>
                                                     <p className="schedule-date">
@@ -112,7 +139,7 @@ export default function MainLayOut({ children }) {
                                                     </p>
                                                     <h5 className="schedule-time">
                                                         {
-                                                            departFlight.arrivalTime
+                                                            formatTimeFromDB(departFlight.arrivalTime)
                                                         }
                                                     </h5>
                                                     <p className="schedule-date">
@@ -139,7 +166,7 @@ export default function MainLayOut({ children }) {
                                                         </div>
                                                         <h6>Bluestar Air</h6>
                                                     </div>
-                                                    
+
                                                 </div>
                                                 <div className="schedule ticketPage">
                                                     <div className="schedule-depart ticketPage">
@@ -147,7 +174,7 @@ export default function MainLayOut({ children }) {
                                                             Điểm đi
                                                         </p>
                                                         <h5 className="schedule-time">
-                                                            {departFlight.departureTime}
+                                                            {formatTimeFromDB(departFlight.departureTime)}
                                                         </h5>
                                                         <p className="schedule-date">
                                                             {departFlight.departureDay}
@@ -174,7 +201,7 @@ export default function MainLayOut({ children }) {
                                                             Điểm đến
                                                         </p>
                                                         <h5 className="schedule-time">
-                                                            {departFlight.arrivalTime}
+                                                            {formatTimeFromDB(departFlight.arrivalTime)}
                                                         </h5>
                                                         <p className="schedule-date">
                                                             {departFlight.departureDay}
@@ -202,7 +229,7 @@ export default function MainLayOut({ children }) {
                                                             Điểm đi
                                                         </p>
                                                         <h5 className="schedule-time">
-                                                            {ariveFlight.departureTime}
+                                                            {formatTimeFromDB(ariveFlight.departureTime)}
                                                         </h5>
                                                         <p className="schedule-date">
                                                             {ariveFlight.departureDay}
@@ -229,7 +256,7 @@ export default function MainLayOut({ children }) {
                                                             Điểm đến
                                                         </p>
                                                         <h5 className="schedule-time">
-                                                            {ariveFlight.arrivalTime}
+                                                            {formatTimeFromDB(ariveFlight.arrivalTime)}
                                                         </h5>
                                                         <p className="schedule-date">
                                                             {ariveFlight.departureDay}
@@ -260,39 +287,34 @@ export default function MainLayOut({ children }) {
                                 {children}
                                 <button className="btn-next" onClick={() => {
                                     if (location.pathname === '/ticket') {
-                                        navigate('/seatreservation');
-                                    } else if (location.pathname === '/seatreservation') {
                                         navigate('/seat');
                                     } else if (location.pathname === '/seat') {
-                                        navigate('/luggage');
-                                    } else if (location.pathname === '/luggage') {
-                                        navigate('/payment');
+                                        navigate('/confirm');
                                     }
-
                                 }}>
-                                    Next
+                                    Tiếp theo
                                 </button>
                             </Grid>
                             <Grid item md={4}>
                                 {
                                     tripType === "oneWay" ? (
                                         <Paper className="fare-paper">
-                                            <h6 className="fare-header">Fare Summary</h6>
+                                            <h6 className="fare-header">Chi tiết hóa đơn</h6>
                                             <ul className="item-list">
                                                 <li className="item-ticket">
                                                     <p>
-                                                        Food , Snack and Drink
+                                                        Thức ăn, đồ uống
                                                     </p>
                                                     <p>
-                                                        120000 VND
+                                                        <span className='food-price-summary'>{formattedPrice(120000)}</span> VND
                                                     </p>
                                                 </li>
                                                 <li className="item-ticket">
                                                     <p>
-                                                        Ticket
+                                                        Giá vé x{localStorage.getItem('numberTickets')}
                                                     </p>
                                                     <p>
-                                                        {departFlight.originalPrice} VND
+                                                        {formattedPrice(calculateTickerPrice(Math.floor(departFlight.originalPrice)))} VND
                                                     </p>
                                                 </li>
                                                 {
@@ -307,28 +329,25 @@ export default function MainLayOut({ children }) {
                                                         </li>
                                                     ))
                                                 }
-                                                <li className="item-ticket">
-                                                    Discount
-                                                </li>
                                             </ul>
 
                                             <div className="ticker-footer">
                                                 <div className="ticker-footer-total" >
-                                                    Total Sumary
+                                                    Thành tiền
                                                 </div>
                                                 <div className="ticker-footer-value" >
-                                                    {total1} VND
+                                                    {formattedPrice(total1)} VND
                                                 </div>
                                             </div>
                                         </Paper>
                                     ) : (
                                         <>
                                             <Paper className="fare-paper">
-                                                <h6 className="fare-header">Outgoing trip</h6>
+                                                <h6 className="fare-header">Chuyến đi</h6>
                                                 <ul className="item-list">
                                                     <li className="item-ticket">
                                                         <p>
-                                                            Food , Snack and Drink
+                                                            Thức ăn, đồ uống
                                                         </p>
                                                         <p>
                                                             120000 VND
@@ -336,7 +355,7 @@ export default function MainLayOut({ children }) {
                                                     </li>
                                                     <li className="item-ticket">
                                                         <p>
-                                                            Ticket
+                                                            Giá vé
                                                         </p>
                                                         <p>
                                                             {departFlight.originalPrice} VND
@@ -355,13 +374,13 @@ export default function MainLayOut({ children }) {
                                                         ))
                                                     }
                                                     <li className="item-ticket">
-                                                        Discount
+                                                        Giảm giá
                                                     </li>
                                                 </ul>
 
                                                 <div className="ticker-footer">
                                                     <div className="ticker-footer-total" >
-                                                        Total Sumary
+                                                        Thành tiền
                                                     </div>
                                                     <div className="ticker-footer-value" >
                                                         {total1} VND
@@ -369,11 +388,11 @@ export default function MainLayOut({ children }) {
                                                 </div>
                                             </Paper>
                                             <Paper className="fare-paper mt-20">
-                                                <h6 className="fare-header">Return trip</h6>
+                                                <h6 className="fare-header">Chuyến về</h6>
                                                 <ul className="item-list">
                                                     <li className="item-ticket">
                                                         <p>
-                                                            Food , Snack and Drink
+                                                            Thức ăn, đồ uống
                                                         </p>
                                                         <p>
                                                             120000 VND
@@ -381,7 +400,7 @@ export default function MainLayOut({ children }) {
                                                     </li>
                                                     <li className="item-ticket">
                                                         <p>
-                                                            Ticket
+                                                            Giá vé
                                                         </p>
                                                         <p>
                                                             {ariveFlight.originalPrice} VND
@@ -400,13 +419,13 @@ export default function MainLayOut({ children }) {
                                                         ))
                                                     }
                                                     <li className="item-ticket">
-                                                        Discount
+                                                        Giảm giá
                                                     </li>
                                                 </ul>
 
                                                 <div className="ticker-footer">
                                                     <div className="ticker-footer-total" >
-                                                        Total Sumary
+                                                        Thành tiền
                                                     </div>
                                                     <div className="ticker-footer-value" >
                                                         {total2} VND
@@ -416,9 +435,7 @@ export default function MainLayOut({ children }) {
                                         </>
                                     )
                                 }
-
                             </Grid>
-
                         </Grid>
                     </Container>
                 </div>

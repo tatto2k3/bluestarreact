@@ -20,14 +20,13 @@ export default function Booking({ onSearch, setIsLoadingLayout, setIsSearchVisib
     const countryElement = useRef()
     const passengerRef = useRef(null);
 
-
     const handleTabChange = (tab) => {
         setSelectedTab(tab);
     };
 
     const GetAllCountries = async () => {
         try {
-            const response = await axios.get("https://bluestarbackend.vercel.app/api/api/airport/getAirports");
+            const response = await axios.get("http://localhost:8000/api/airport/getAirports");
             setCountries(response.data);
         } catch (error) {
             console.log(error);
@@ -362,8 +361,7 @@ export default function Booking({ onSearch, setIsLoadingLayout, setIsSearchVisib
                             setIsLoadingLayout(true);
                             setIsSearchVisible(true);
                             setIsLoading(true);
-                            console.log(searchInfo);
-                            axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}
+                            axios.get(`http://localhost:8000/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}
                                 &departureDay=${formatDate(searchInfo.DepartTime)}`)
                                 .then(res => {
                                     setSearchResult(res.data);
@@ -377,6 +375,7 @@ export default function Booking({ onSearch, setIsLoadingLayout, setIsSearchVisib
                                     console.log(error);
                                     setIsLoadingLayout(false);
                                 });
+                            localStorage.setItem("numberTickets", adults + children);
                         }}>
                             Tìm chuyến bay
                         </Button>

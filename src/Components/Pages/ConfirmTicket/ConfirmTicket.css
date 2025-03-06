@@ -1,0 +1,24 @@
+.card-body > .row {
+    color: black;
+}
+
+.overflow-confirm-ticket {
+    height: 450px;
+    overflow-y: auto; 
+    overflow-x: hidden;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.overflow-confirm-ticket::-webkit-scrollbar {
+    width: 5px;
+}
+
+.overflow-confirm-ticket::-webkit-scrollbar-thumb {
+    background: #007bff;
+    border-radius: 5px;
+}
+
+.overflow-confirm-ticket::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}

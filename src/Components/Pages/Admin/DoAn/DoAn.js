@@ -28,7 +28,7 @@ const DoAn = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch("https://bluestarbackend.vercel.app/api/api/food/getFoods");
+                const response = await fetch("http://localhost:8000/api/food/getFoods");
                 if (!response.ok) {
                     throw new Error(`Error: ${response.statusText}`);
                 }
@@ -60,7 +60,7 @@ const DoAn = () => {
     const handleShowInfo = async () => {
         try {
             if (selectedFoods.length > 0) {
-                const response = await fetch(`https://bluestarbackend.vercel.app/api/api/food/getFoodDetails?fIds=${selectedFoods.join(',')}`);
+                const response = await fetch(`http://localhost:8000/api/food/getFoodDetails?fIds=${selectedFoods.join(',')}`);
                 const data = await response.json();
 
                 // Chuyển hướng sang trang sửa khách hàng và truyền thông tin khách hàng
@@ -84,7 +84,7 @@ const DoAn = () => {
     const handleDelete = async () => {
         setShowConfirmation(false);
             try {
-                const response = await axios.delete(`https://bluestarbackend.vercel.app/api/api/food/deleteFood/${selectedFoods.join(',')}`, {
+                const response = await axios.delete(`http://localhost:8000/api/food/deleteFood/${selectedFoods.join(',')}`, {
                     data: selectedFoods, // Pass the array as data
                     headers: {
                         'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ const DoAn = () => {
     const handleSearch = async () => {
         if (searchKeyword != "") {
             try {
-                const response = await fetch(`https://bluestarbackend.vercel.app/api/api/food/searchFoods?searchKeyword=${searchKeyword}`);
+                const response = await fetch(`http://localhost:8000/api/food/searchFoods?searchKeyword=${searchKeyword}`);
                 const data = await response.json();
                 setFoods(data);
             } catch (error) {
@@ -128,7 +128,7 @@ const DoAn = () => {
         }
         else {
             try {
-                const response = await fetch("https://bluestarbackend.vercel.app/api/api/food/getFoods");
+                const response = await fetch("http://localhost:8000/api/food/getFoods");
                 const data = await response.json();
                 setFoods(data);
             } catch (error) {

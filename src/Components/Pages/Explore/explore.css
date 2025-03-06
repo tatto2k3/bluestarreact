@@ -35,16 +35,7 @@
   justify-content: center;
 }
 
-.card {
-  overflow: hidden;
-  box-shadow: 0 2px 20px var(--clr-gray300);
-  border-radius: var(--radius);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-  transition: transform 200ms ease-in;
-}
+
 
 .card__image {
   height: 12rem;

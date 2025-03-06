@@ -52,6 +52,7 @@ import MaGiamGia_Them from "./Components/Pages/Admin/MaGiamGia_Them/ThemMaGiamGi
 import MaGiamGia_Sua from "./Components/Pages/Admin/MaGiamGia_Sua/SuaMaGiamGia";
 import AdminLayout from "./Components/Layouts/AdminLayout/AdminLayout";
 import SeatReservation from "./Components/Pages/SeatReservation/SeatReservation";
+import ConfirmTicket from "./Components/Pages/ConfirmTicket/ConfirmTicket";
 
 const AppRoutes = [
   
@@ -128,6 +129,11 @@ const AppRoutes = [
     {
         path: '/payment',
         element: Payment,
+        layout: MainLayOut
+    },
+    {
+        path: '/confirm',
+        element: ConfirmTicket,
         layout: MainLayOut
     },
     {

@@ -13,11 +13,6 @@
     margin-right: 15px; /* Tăng khoảng cách giữa các cột */
 }
 
-.card{
-    width: 900px;
-    margin: 0 auto;
-}
-
 .card-header{
     background-color: #4698D4;
 }

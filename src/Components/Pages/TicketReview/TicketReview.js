@@ -37,7 +37,6 @@ const TicketReview = () => {
     }, [location.state?.selectedCustomerInfo]);
 
     const handleDownload = () => {
-       
         navigate("/");
     };
 

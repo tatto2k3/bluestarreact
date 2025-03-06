@@ -3,16 +3,9 @@
     padding-bottom: 15px; /* Tăng khoảng cách giữa đường kẻ và nội dung */
     margin-bottom: 15px; /* Tăng khoảng cách giữa các hàng */
 }
-.column-with-border {
-    border-right: 1px solid #ccc;
-    padding-right: 15px; /* Tăng khoảng cách giữa đường kẻ và nội dung */
-    margin-right: 15px; /* Tăng khoảng cách giữa các cột */
-}
 
-.card{
-    width: 900px;
-    
-}
+
+
 .card-header{
     background-color: #4698D4;
 }

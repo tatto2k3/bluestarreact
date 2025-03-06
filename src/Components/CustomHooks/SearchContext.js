@@ -13,6 +13,7 @@ export const SearchProvider = ({ children }) => {
         PassportNumber: "",
         Country: "",
         City: "",
+        District: "",
         Contact: "",
         Email: "",
         Discount: ""
@@ -51,12 +52,13 @@ export const SearchProvider = ({ children }) => {
         }
     };
 
-
     const calculateTotal1 = (ticketPrice) => {
         const ticketPriceNumber = parseFloat(ticketPrice) || 0;
-        const foodTotal1 = foodItems1?.reduce((total, item) => total + item.price * item.quantity, 0);
-        return 120000 + ticketPrice + foodTotal1;
+        const foodTotal1 = (foodItems1 ?? []).reduce((total, item) => total + item.price * item.quantity, 0);
+        
+        return 120000 + ticketPriceNumber + foodTotal1;
     };
+
     const addFoodItem2 = (itemName, itemPrice) => {
         const existingItem = foodItems2?.find(item => item.name === itemName);
 

@@ -35,7 +35,7 @@ const ThemVe = () => {
             Dis_ID: disId,
         };
         try {
-        const ticketResponse = await fetch("https://bluestarbackend.vercel.app/api/api/ticket/addTicket", {
+        const ticketResponse = await fetch("http://localhost:8000/api/ticket/addTicket", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
