@@ -32,7 +32,7 @@ const KhachHang = () => {
         // Lấy danh sách khách hàng từ API hoặc nguồn dữ liệu khác
         const fetchData = async () => {
             try {
-                const response = await fetch("http://localhost:8000/api/customer/getCustomers");
+                const response = await fetch("https://bluestarbackend.vercel.app/api/api/customer/getCustomers");
                 const data = await response.json();
                 setCustomers(data);
             } catch (error) {
@@ -59,7 +59,7 @@ const KhachHang = () => {
     const handleShowInfo = async () => {
         try {
             if (selectedCustomers.length > 0) {
-                const response = await fetch(`http://localhost:8000/api/customer/getCustomerDetails?cIds=${selectedCustomers.join(',')}`);
+                const response = await fetch(`https://bluestarbackend.vercel.app/api/api/customer/getCustomerDetails?cIds=${selectedCustomers.join(',')}`);
                 const data = await response.json();
 
                 // Chuyển hướng sang trang sửa khách hàng và truyền thông tin khách hàng
@@ -85,7 +85,7 @@ const KhachHang = () => {
         if (selectedCustomers.length > 0) {
             
                 try {
-                    const response = await axios.delete(`http://localhost:8000/api/customer/deleteCustomer/${selectedCustomers.join(',')}`, {
+                    const response = await axios.delete(`https://bluestarbackend.vercel.app/api/api/customer/deleteCustomer/${selectedCustomers.join(',')}`, {
                         data: selectedCustomers, // Pass the array as data
                         headers: {
                             'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ const KhachHang = () => {
     const handleSearch = async () => {
         if (searchKeyword != "") {
             try {
-                const response = await fetch(`http://localhost:8000/api/customer/searchCustomers?searchKeyword=${searchKeyword}`);
+                const response = await fetch(`https://bluestarbackend.vercel.app/api/api/customer/searchCustomers?searchKeyword=${searchKeyword}`);
                 const data = await response.json();
                 setCustomers(data);
             } catch (error) {
@@ -130,7 +130,7 @@ const KhachHang = () => {
         }
         else {
             try {
-                const response = await fetch("http://localhost:8000/api/customer/getCustomers");
+                const response = await fetch("https://bluestarbackend.vercel.app/api/api/customer/getCustomers");
                 const data = await response.json();
                 setCustomers(data);
             } catch (error) {

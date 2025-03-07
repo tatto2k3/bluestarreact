@@ -21,7 +21,7 @@ const ThemSanBay = () => {
             place: place,
         };
         try {
-            const sanbayResponse = await fetch("http://localhost:8000/api/sanbay/addSanbay", {
+            const sanbayResponse = await fetch("https://bluestarbackend.vercel.app/api/api/sanbay/addSanbay", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

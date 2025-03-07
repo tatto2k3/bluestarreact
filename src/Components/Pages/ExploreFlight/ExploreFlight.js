@@ -117,7 +117,7 @@ export default function ExploreFlight() {
 
     const GetAllFlights = async () => {
         try {
-            const response = await axios.get("http://localhost:8000/api/flight/getExploreFlights");
+            const response = await axios.get("https://bluestarbackend.vercel.app/api/api/flight/getExploreFlights");
             setFlights(response.data);
             console.log(response.data);
         } catch (error) {

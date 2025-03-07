@@ -37,7 +37,7 @@ export default function SeatReservation() {
 
     useEffect(() => {
         // Fetch data from the API using Axios
-        axios.get('http://localhost:8000/api/food/getFoods')
+        axios.get('https://bluestarbackend.vercel.app/api/api/food/getFoods')
             .then(response => {
                 setFoods(response.data);
             })

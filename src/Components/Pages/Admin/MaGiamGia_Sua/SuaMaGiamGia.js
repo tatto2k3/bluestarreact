@@ -74,7 +74,7 @@ const SuaMaGiamGia = () => {
             }
 
             // Sử dụng fetch để thực hiện yêu cầu PUT
-            const response = await fetch('http://localhost:8000/api/discount/updateDiscount', {
+            const response = await fetch('https://bluestarbackend.vercel.app/api/api/discount/updateDiscount', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

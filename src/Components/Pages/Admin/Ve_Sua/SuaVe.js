@@ -87,7 +87,7 @@ const SuaVe = () => {
             }
 
             // Sử dụng fetch để thực hiện yêu cầu PUT
-            const response = await fetch('http://localhost:8000/api/ticket/updateTicket', {
+            const response = await fetch('https://bluestarbackend.vercel.app/api/api/ticket/updateTicket', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

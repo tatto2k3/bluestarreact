@@ -16,7 +16,7 @@ function Personal() {
     const handleShowInfo = async () => {
         try {
             const response = await fetch(
-                `http://localhost:8000/api/account/getAccountDetails?email=${localStorage.getItem('email') }`
+                `https://bluestarbackend.vercel.app/api/api/account/getAccountDetails?email=${localStorage.getItem('email') }`
             );
             if (response.ok) {
                 const data = await response.json();
@@ -33,7 +33,7 @@ function Personal() {
     const handleShowInfoPoint = async () => {
         try {
             const response = await fetch(
-                `http://localhost:8000/api/account/getPoints?email=${localStorage.getItem('email')}`
+                `https://bluestarbackend.vercel.app/api/api/account/getPoints?email=${localStorage.getItem('email')}`
             );
             if (response.ok) {
                 const data = await response.json();
@@ -72,7 +72,7 @@ function Personal() {
 
 
             // Sử dụng fetch để thực hiện yêu cầu PUT
-            const response = await fetch('http://localhost:8000/api/account/updateAccount', {
+            const response = await fetch('https://bluestarbackend.vercel.app/api/api/account/updateAccount', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

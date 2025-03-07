@@ -104,18 +104,18 @@ export default function MainLayOut({ children }) {
 
     const handlePayment = async () => {
         try {
-            const response = await axios.post("http://localhost:8000/api/onlineCheckout/check_out", { ticket_amount }, {
+            const response = await axios.post("https://bluestarbackend.vercel.app/api/api/onlineCheckout/check_out", { ticket_amount }, {
                 headers: { 'Content-Type': 'application/json' },
             });
             if (response.data.redirect_url) {
                 const jsonData = createJsonData(departFlight);
                 console.log(jsonData);
-                const responseSavedTicket = await axios.post("http://localhost:8000/api/payment/handleCallback", jsonData, {
+                const responseSavedTicket = await axios.post("https://bluestarbackend.vercel.app/api/api/payment/handleCallback", jsonData, {
                     headers: { 'Content-Type': 'application/json' },
                 });
                 if (tripType === "roundTrip") {
                     const jsonDataComeback = createJsonData(passenger, ariveFlight);
-                    await axios.post("http://localhost:8000/api/payment/handleCallback", jsonDataComeback, {
+                    await axios.post("https://bluestarbackend.vercel.app/api/api/payment/handleCallback", jsonDataComeback, {
                         headers: { 'Content-Type': 'application/json' },
                     });
                 }

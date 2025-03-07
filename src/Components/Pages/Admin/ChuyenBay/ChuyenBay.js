@@ -32,7 +32,7 @@ const ChuyenBay = () => {
         // Lấy danh sách khách hàng từ API hoặc nguồn dữ liệu khác
         const fetchData = async () => {
             try {
-                const response = await fetch("http://localhost:8000/api/flight/getFlights");
+                const response = await fetch("https://bluestarbackend.vercel.app/api/api/flight/getFlights");
                 const data = await response.json();
                 setChuyenbays(data);
             } catch (error) {
@@ -59,7 +59,7 @@ const ChuyenBay = () => {
     const handleShowInfo = async () => {
         try {
             if (selectedChuyenbays.length > 0) {
-                const response = await fetch(`http://localhost:8000/api/flight/getFlightDetails?flyIds=${selectedChuyenbays.join(',')}`);
+                const response = await fetch(`https://bluestarbackend.vercel.app/api/api/flight/getFlightDetails?flyIds=${selectedChuyenbays.join(',')}`);
                 const data = await response.json();
 
                 // Chuyển hướng sang trang sửa khách hàng và truyền thông tin khách hàng
@@ -76,7 +76,7 @@ const ChuyenBay = () => {
         if (selectedChuyenbays.length > 0) {
             if (window.confirm("Are you sure to delete this chuyenbay")) {
                 try {
-                    const response = await axios.delete('http://localhost:8000/api/flight', {
+                    const response = await axios.delete('https://bluestarbackend.vercel.app/api/api/flight', {
                         data: selectedChuyenbays, // Pass the array as data
                         headers: {
                             'Content-Type': 'application/json',
