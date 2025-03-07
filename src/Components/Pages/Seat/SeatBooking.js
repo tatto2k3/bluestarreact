@@ -11,14 +11,35 @@ export default function SeatBooking() {
         total1, setTotal1, foodItems1, setFoodItems1, total2, setTotal2,
         foodItems2, setFoodItems2, addFoodItem1, calculateTotal1, addFoodItem2, calculateTotal2, passengerInfo,
         setPassengerInfo, seatId, setSeatId, luggaeId, setLuggageId] = useSearch();
-        
+
     const [seat, setSeat] = useState([]);
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [activeButton, setActiveButton] = useState("Depart");
     const [currentStatus, setCurrentStatus] = useState("depart");
 
     // Lấy số lượng vé từ localStorage
-    const numberTickets = parseInt(localStorage.getItem("numberTickets")) || 1;
+    const [passengerList, setPassengerList] = useState([]);
+    const [numberTickets, setNumberTickets] = useState(1);
+
+    useEffect(() => {
+        const savedNumberTickets = localStorage.getItem("numberTickets");
+        if (savedNumberTickets) {
+            setNumberTickets(parseInt(savedNumberTickets));
+        }
+
+        const savedPassengerList = localStorage.getItem("passengerList");
+        if (savedPassengerList) {
+            const parsedPassengerList = JSON.parse(savedPassengerList);
+            setPassengerList(parsedPassengerList);
+
+            const savedSeats = parsedPassengerList
+                .map(passenger => passenger.SeatId)
+                .filter(seatId => seatId);
+
+            setSelectedSeats(savedSeats);
+        }
+    }, []);
+
 
     useEffect(() => {
         axios.get("http://localhost:8000/api/seat/getAllSeats")
@@ -30,19 +51,36 @@ export default function SeatBooking() {
             });
     }, []);
 
+    console.log("passengerLisst", passengerList);
+
     const handleSeatSelection = (seatId) => {
+        let updatedSeats;
+
         if (selectedSeats.includes(seatId)) {
-            // Nếu ghế đã được chọn, bỏ chọn nó
-            setSelectedSeats(selectedSeats.filter(id => id !== seatId));
+            updatedSeats = selectedSeats.filter(id => id !== seatId);
         } else {
-            // Chỉ thêm ghế mới nếu chưa đủ số lượng vé
             if (selectedSeats.length < numberTickets) {
-                setSelectedSeats([...selectedSeats, seatId]);
+                updatedSeats = [...selectedSeats, seatId];
             } else {
                 alert(`Bạn chỉ có thể chọn tối đa ${numberTickets} ghế.`);
+                return;
             }
         }
+
+        setSelectedSeats(updatedSeats);
+
+        const updatedPassengerList = passengerList.map((passenger, index) => ({
+            ...passenger,
+            SeatId: updatedSeats[index] || "",
+        }));
+
+        setPassengerList(updatedPassengerList);
     };
+
+    useEffect(() => {
+        localStorage.setItem("passengerList", JSON.stringify(passengerList));
+    }, [passengerList]);
+
 
     const seatsPerColumn = 5;
     const totalColumns = Math.ceil(seat.length / seatsPerColumn);
@@ -77,8 +115,7 @@ export default function SeatBooking() {
                     </button>
                 </div>
             )}
-            
-            {/* Legend hướng dẫn màu sắc ghế */}
+
             <div className="seat-legend">
                 <div className="legend-item">
                     <div className="legend-box normal-seat"></div>

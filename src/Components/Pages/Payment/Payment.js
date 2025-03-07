@@ -34,7 +34,7 @@ export default function Payment() {
         "ticket_amount": amount,
         "customer_name": `${passengerInfo.LastName}`,
         "customer_email": `${passengerInfo.Email}`,
-        "customer_identify": `${passengerInfo.PassportNumber}`,
+        "customer_identify": `${passengerInfo.PassportNumber}`, 
         "seat_id": `${seatId}`,
         "flight_id": `${departFlight.flyID}`,
         "departure_day": `${departFlight.departureDay}`,
@@ -61,6 +61,8 @@ export default function Payment() {
         "duration_time": `${formatTimeDuration(ariveFlight.departureTime, ariveFlight.arrivalTime)}`,
         "trip_type": `${tripType}`
     }
+
+
     console.log("DataComeback:", jsonDataComeback);
 
     console.log("Data:", jsonData);
@@ -115,11 +117,7 @@ export default function Payment() {
                             })
                                 .then(response => {
                                     console.log('Response:', response.data.data);
-
-                                    // Kiểm tra xem response có chứa redirect_url không
                                     if (response.data.redirect_url) {
-                                        // Thực hiện chuyển hướng
-
                                         if (tripType === 'oneTrip') {
                                             axios.post("http://localhost:8000/api/payment/handleCallback", jsonData, {
                                                 headers: {

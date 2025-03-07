@@ -7,7 +7,7 @@
     overflow-y: auto; 
     overflow-x: hidden;
     padding: 10px;
-    margin: 0 auto;
+    margin-top: 20px;
 }
 
 .overflow-confirm-ticket::-webkit-scrollbar {
@@ -21,4 +21,14 @@
 
 .overflow-confirm-ticket::-webkit-scrollbar-track {
     background: #f1f1f1;
+}
+
+.img-logo2-confirm-ticket {
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+.img-flight-confirm-ticket {
+    width: 100px;
+    margin-top: 30px;
 }

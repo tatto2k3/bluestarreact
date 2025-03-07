@@ -4,151 +4,124 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import "./ConfirmTicket.css";
 import axios from "axios";
 import { useSearch } from '../../CustomHooks/SearchContext';
-export default function ConfirmTicket() {
-    const [searchResult, setSearchResult, isLoading, setIsLoading, searchInfo,
-        setSearchInfo, tripType, setTripType, airport, setAirport, departFlight, setDepartFlight, ariveFlight, setArriveFlight,
-        total1, setTotal1, foodItems1, setFoodItems1, total2, setTotal2,
-        foodItems2, setFoodItems2, addFoodItem1, calculateTotal1, addFoodItem2, calculateTotal2, passengerInfo,
-        setPassengerInfo, seatId, setSeatId, luggaeId, setLuggageId] = useSearch();
+import flyImg from '../../../assets/fly.png';
+import logo2 from '../../../assets/logo2.PNG'
 
+export default function ConfirmTicket() {
     const navigate = useNavigate();
     const location = useLocation();
-    const [ticketReviewDetails, setTicketReviewDetails] = useState({
-        departureDay: '',
-        departureTime: '',
-        arrivalTime: '',
-        seatId: '',
-        flyId: '',
-        name: '',
-        cccd: ''
-    });
 
-    // useEffect(() => {
-    //     const selectedCustomerInfo = location.state?.selectedCustomerInfo || [];
-    //     console.log("Selected customer info in useEffect:", selectedCustomerInfo[0].departureDay);
+    const [passengerList, setPassengerList] = useState([]);
+    const [departFlight, setDepartFlight] = useState([]);
 
-    //     // Lắng nghe sự thay đổi của selectedCustomerInfo và cập nhật state
-    //         setTicketReviewDetails({
-    //             departureDay: selectedCustomerInfo[0].departureDay || '',
-    //             departureTime: selectedCustomerInfo[0].departureTime || '',
-    //             arrivalTime: selectedCustomerInfo[0].arrivalTime || '',
-    //             seatId: selectedCustomerInfo[0].Seat_ID || '',
-    //             flyId: selectedCustomerInfo[0].Fly_ID || '',
-    //             name: selectedCustomerInfo[0].Name || '',
-    //             cccd: selectedCustomerInfo[0].CCCD || ''
-    //         });
+    useEffect(() => {
+        const savedDepartureflight = localStorage.getItem("departFlight");
+        if (savedDepartureflight) {
+            const departFlight = JSON.parse(savedDepartureflight);
+            setDepartFlight(departFlight);
+        }
+        const savedPassengerList = localStorage.getItem("passengerList");
+        if (savedPassengerList) {
+            const parsedPassengerList = JSON.parse(savedPassengerList);
+            setPassengerList(parsedPassengerList);
+        }
+    }, []);
 
-    //     console.log("setTicketReviewDetails:", ticketReviewDetails);
-    // }, [location.state?.selectedCustomerInfo]);
-
-    const handleDownload = () => {
-        navigate("/");
-    };
+    console.log("PassengerList", passengerList);
 
     return (
         <div className='overflow-confirm-ticket'>
-            <div className="container mt-4 containerHeight" style={{ width: '120%' }}>
-                <div className="row">
-                    <div className="col-md-10">
-                        <div className="card">
-                            <div className="card-header text-white">
-                                <h3 className="mb-0">Thông tin vé máy bay</h3>
-                            </div>
-                            <div className="card-body">
-                                <div className="row">
-                                    <div className="col-md-3 column-with-border">
-                                        <div className="form-group">
-                                            <label htmlFor="departureDate">Ngày khởi hành:</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="departureDate"
-                                                value={ticketReviewDetails.departureDay}
-                                                readOnly
-                                            />
+            {passengerList.map((passenger, index) => (
+                <div key={index} className="container mt-4 containerHeight" style={{ width: '120%' }}>
+                    <div className="row">
+                        <div className="col-md-10">
+                            <div className="card">
+                                <div className="card-header text-white">
+                                    <h3 className="mb-0">Thông tin vé máy bay</h3>
+                                </div>
+                                <div className="card-body">
+                                    <div className="row">
+                                        <div className="col-md-3 column-with-border">
+                                            <div className="form-group">
+                                                <label>Ngày khởi hành:</label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    value={departFlight.departureDay || ''}
+                                                    readOnly
+                                                />
+                                            </div>
+                                            <div className="form-group row-with-border">
+                                                <label>Giờ khởi hành:</label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    value={departFlight.departureTime || ''}
+                                                    readOnly
+                                                />
+                                            </div>
+                                            <div className="form-group">
+                                                <label>Mã chỗ ngồi:</label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    value={passenger.SeatId || ''}
+                                                    readOnly
+                                                />
+                                            </div>
                                         </div>
-                                        <div className="form-group row-with-border">
-                                            <label htmlFor="fullName">Giờ khởi hành:</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="departureTime"
-                                                value={ticketReviewDetails.departureTime}
-                                                readOnly
-                                            />
+                                        <div className="col-md-3 column-with-border">
+                                            <div className="form-group">
+                                                <label>Ngày đến:</label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    value={departFlight.departureDay || ''}
+                                                    readOnly
+                                                />
+                                            </div>
+                                            <div className="form-group row-with-border">
+                                                <label>Giờ đến:</label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    value={departFlight.arrivalTime || ''}
+                                                    readOnly
+                                                />
+                                            </div>
+                                            <div className="form-group">
+                                                <label>Mã chuyến bay:</label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    value={departFlight.id || ''}
+                                                    readOnly
+                                                />
+                                            </div>
                                         </div>
-                                        <div className="form-group">
-                                            <label htmlFor="seatNumber">Mã chỗ ngồi:</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="seatNumber"
-                                                value={ticketReviewDetails.seatId}
-                                                readOnly
-                                            />
+                                        <div className="col-md-2" style={{ padding: "0" }}>
+                                            <img src={logo2} alt="" className="img-logo2-confirm-ticket logo-rotate" />
+                                            <img src={flyImg} alt="" className="img-flight-confirm-ticket" />
                                         </div>
-                                    </div>
-                                    <div className="col-md-3 column-with-border">
-                                        <div className="form-group">
-                                            <label htmlFor="arrivalDate">Ngày đến:</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="arrivalDate"
-                                                value={ticketReviewDetails.departureDay}
-                                                readOnly
-                                            />
-                                        </div>
-                                        <div className="form-group row-with-border">
-                                            <label htmlFor="cccd">Giờ đến:</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="arrivalTime"
-                                                value={ticketReviewDetails.arrivalTime}
-                                                readOnly
-                                            />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="flightCode">Mã chuyến bay:</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="flightCode"
-                                                value={ticketReviewDetails.flyId}
-                                                readOnly
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="col-md-2">
-                                        <img src="/Images/Plane.png" alt="" className="img-flight" />
-                                    </div>
-                                    <div className="col-md-3">
-                                        <div className="form-group">
-                                            <label htmlFor="fullName">Họ và tên:</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="fullName"
-                                                value={ticketReviewDetails.name}
-                                                readOnly
-                                            />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="cccd">CCCD:</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="cccd"
-                                                value={ticketReviewDetails.cccd}
-                                                readOnly
-                                            />
-                                        </div>
-                                        <div className="button-card">
-
-                                            <button type="button" className="btn btn-outline-primary btn-block" onClick={handleDownload}>
-                                                Trang chủ
-                                            </button>
+                                        <div className="col-md-3">
+                                            <div className="form-group">
+                                                <label>Họ và tên:</label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    value={`${passenger.FirstName || ''} ${passenger.LastName || ''}`.trim()}
+                                                    readOnly
+                                                />
+                                            </div>
+                                            <div className="form-group">
+                                                <label>CCCD:</label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    value={passenger.PassportNumber || ''}
+                                                    readOnly
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +129,7 @@ export default function ConfirmTicket() {
                         </div>
                     </div>
                 </div>
-            </div>
+            ))}
         </div>
     )
 }

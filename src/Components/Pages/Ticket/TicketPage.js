@@ -6,29 +6,47 @@ import { useSearch } from "../../CustomHooks/SearchContext";
 import provinceData from "../../../assets/province.json";
 
 export default function TicketPage() {
-    const [searchResult, setSearchResult, isLoading, setIsLoading, searchInfo,
-        setSearchInfo, tripType, setTripType, airport, setAirport, departFlight, setDepartFlight, arriveFlight, setArriveFlight,
-        total1, setTotal1, foodItems1, setFoodItems1, total2, setTotal2,
-        foodItems2, setFoodItems2, addFoodItem1, calculateTotal1, addFoodItem2, calculateTotal2, passengerInfo,
-        setPassengerInfo, seatId, setSeatId, luggageId, setLuggageId] = useSearch();
-
     const [provinces, setProvinces] = useState([]);
     const [numberTickets, setNumberTickets] = useState(1);
     const [passengerList, setPassengerList] = useState([]);
 
     useEffect(() => {
         setProvinces(provinceData.province);
-    }, []);
-
-    useEffect(() => {
+    
         const savedNumberTickets = localStorage.getItem("numberTickets");
         if (savedNumberTickets) {
             setNumberTickets(parseInt(savedNumberTickets));
         }
+    
+        const savedPassengerList = localStorage.getItem("passengerList");
+        if (savedPassengerList) {
+            const parsedList = JSON.parse(savedPassengerList);
+            setPassengerList(parsedList.length === numberTickets ? parsedList : initializePassengerList(numberTickets));
+        } else {
+            setPassengerList(initializePassengerList(numberTickets));
+        }
     }, []);
 
     useEffect(() => {
-        const newPassengerList = Array.from({ length: numberTickets }, () => ({
+        localStorage.setItem("numberTickets", numberTickets);
+        setPassengerList((prevList) => {
+            if (numberTickets > prevList.length) {
+                return [
+                    ...prevList,
+                    ...initializePassengerList(numberTickets - prevList.length),
+                ];
+            } else {
+                return prevList.slice(0, numberTickets);
+            }
+        });
+    }, [numberTickets]);
+
+    useEffect(() => {
+        localStorage.setItem("passengerList", JSON.stringify(passengerList));
+    }, [passengerList]);
+
+    const initializePassengerList = (count) => {
+        return Array.from({ length: count }, () => ({
             FirstName: "",
             LastName: "",
             DateOfBirth: "",
@@ -39,10 +57,10 @@ export default function TicketPage() {
             Contact: "",
             Email: "",
             Discount: "",
-            Districts: [] 
+            Districts: [],
+            SeatId: "",
         }));
-        setPassengerList(newPassengerList);
-    }, [numberTickets]);
+    };
 
     const handleInputChange = (index, fieldName, value) => {
         const updatedList = [...passengerList];
@@ -55,7 +73,7 @@ export default function TicketPage() {
         const updatedList = [...passengerList];
 
         updatedList[index].City = selectedCityId;
-        updatedList[index].District = ""; 
+        updatedList[index].District = "";
         updatedList[index].Districts = provinceData.district.filter(
             (d) => d.idProvince === selectedCityId
         );

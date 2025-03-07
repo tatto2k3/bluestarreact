@@ -10,6 +10,8 @@ import "./MainLayout.css"
 import { useSearch } from '../../CustomHooks/SearchContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import logo from '../../../assets/logo2.PNG';
+import axios from "axios";
+
 
 export default function MainLayOut({ children }) {
     const pages = ["Thông tin hành khách", "Thông tin đặt chỗ", "Xác nhận", "Thanh toán"];
@@ -48,7 +50,7 @@ export default function MainLayOut({ children }) {
             console.log('Total:', total2);
             setTotal2(total2);
         }
-    }, [ariveFlight, tripType]); 
+    }, [ariveFlight, tripType]);
 
 
     const formatTimeFromDB = (timeString) => {
@@ -66,7 +68,7 @@ export default function MainLayOut({ children }) {
     }
 
     const formattedPrice = (price) => {
-        return price?.toLocaleString('vi-VN'); 
+        return price?.toLocaleString('vi-VN');
     };
 
     const calculateTickerPrice = (price) => {
@@ -75,6 +77,55 @@ export default function MainLayOut({ children }) {
             return parseInt(numberTickets) * price;
         }
     }
+
+    const [passengerList, setPassengerList] = useState([]);
+
+    useEffect(() => {
+        const savedPassengerList = localStorage.getItem("passengerList");
+        if (savedPassengerList) {
+            const parsedPassengerList = JSON.parse(savedPassengerList);
+            setPassengerList(parsedPassengerList);
+        }
+    }, []);
+
+    console.log(total1);
+    const ticket_amount = parseInt(total1);
+
+    const createJsonData = (flight) => ({
+        "passengerList": passengerList,
+        "flight_id": `${flight.id}`,
+        "departure_day": `${flight.departureDay}`,
+        "arrive_day": `${flight.departureDay}`,
+        "departure_time": `${flight.departureTime}`,
+        "arrive_time": `${flight.arrivalTime}`,
+        "duration_time": `${formatTimeDuration(flight.departureTime, flight.arrivalTime)}`,
+        "trip_type": `${tripType}`
+    });
+
+    const handlePayment = async () => {
+        try {
+            const response = await axios.post("http://localhost:8000/api/onlineCheckout/check_out", { ticket_amount }, {
+                headers: { 'Content-Type': 'application/json' },
+            });
+            if (response.data.redirect_url) {
+                const jsonData = createJsonData(departFlight);
+                console.log(jsonData);
+                const responseSavedTicket = await axios.post("http://localhost:8000/api/payment/handleCallback", jsonData, {
+                    headers: { 'Content-Type': 'application/json' },
+                });
+                if (tripType === "roundTrip") {
+                    const jsonDataComeback = createJsonData(passenger, ariveFlight);
+                    await axios.post("http://localhost:8000/api/payment/handleCallback", jsonDataComeback, {
+                        headers: { 'Content-Type': 'application/json' },
+                    });
+                }
+            }
+            window.location.href = response.data.redirect_url;
+        } catch (error) {
+            console.error("Lỗi thanh toán:", error);
+            alert("Thanh toán thất bại, vui lòng thử lại!");
+        }
+    };
 
     return (
         <>
@@ -116,7 +167,7 @@ export default function MainLayOut({ children }) {
                                                     </p>
                                                     <p className="airport-depart">
                                                         {
-                                                            airport.fromAirport
+                                                            departFlight?.from_airport?.name
                                                         }
                                                     </p>
                                                 </div>
@@ -149,7 +200,7 @@ export default function MainLayOut({ children }) {
                                                     </p>
                                                     <p className="airport-depart">
                                                         {
-                                                            airport.toAirport
+                                                            departFlight?.to_airport?.name
                                                         }
                                                     </p>
                                                 </div>
@@ -290,9 +341,11 @@ export default function MainLayOut({ children }) {
                                         navigate('/seat');
                                     } else if (location.pathname === '/seat') {
                                         navigate('/confirm');
+                                    } else if (location.pathname === '/confirm') {
+                                        handlePayment();
                                     }
                                 }}>
-                                    Tiếp theo
+                                    {location.pathname === '/confirm' ? "Thanh Toán" : "Tiếp theo"}
                                 </button>
                             </Grid>
                             <Grid item md={4}>
