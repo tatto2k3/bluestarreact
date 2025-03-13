@@ -84,10 +84,10 @@ export default function Profile() {
         try {
             console.log(user);
             const response = await api.post("/update-user-meta", user);
-            toast.success("Thông tin cập nhật thành công");
+            alert("Thông tin cập nhật thành công");
             console.log("Thông tin cập nhật thành công:", response.data);
         } catch (error) {
-            toast.error("Lỗi khi cập nhật thông tin");
+            alert("Lỗi khi cập nhật thông tin");
             console.error("Lỗi khi cập nhật thông tin:", error);
         }
     };
