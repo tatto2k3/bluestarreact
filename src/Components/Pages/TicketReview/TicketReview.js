@@ -27,7 +27,7 @@ const TicketReview = () => {
         }
         setIsLoading(true);
         try {
-            const response = await fetch(`http://localhost:8000/api/ticket/getTicketDetailsById/${ticketCode}/${fullName}`);
+            const response = await fetch(`https://bluestarbackend.vercel.app/api/api/ticket/getTicketDetailsById/${ticketCode}/${fullName}`);
             const data = await response.json();
 
             if (!response.ok) {
@@ -55,7 +55,7 @@ const TicketReview = () => {
     async function fetchFlightDetails(flyId) {
         setIsLoading(true);
         try {
-            const response = await fetch(`http://localhost:8000/api/flight/${flyId}`, {
+            const response = await fetch(`https://bluestarbackend.vercel.app/api/api/flight/${flyId}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             });

@@ -23,7 +23,7 @@ const ThemDoAn = () => {
 
         };
         try {
-        const FoodResponse = await fetch("http://localhost:8000/api/food/addFood", {
+        const FoodResponse = await fetch("https://bluestarbackend.vercel.app/api/api/food/addFood", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

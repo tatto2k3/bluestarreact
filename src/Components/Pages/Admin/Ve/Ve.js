@@ -30,7 +30,7 @@ const Ve = () => {
         // Lấy danh sách khách hàng từ API hoặc nguồn dữ liệu khác
         const fetchData = async () => {
             try {
-                const response = await fetch("http://localhost:8000/api/ticket/getTickets");
+                const response = await fetch("https://bluestarbackend.vercel.app/api/api/ticket/getTickets");
                 const data = await response.json();
                 setTickets(data);
             } catch (error) {
@@ -57,7 +57,7 @@ const Ve = () => {
     const handleShowInfo = async () => {
         try {
             if (selectedTickets.length > 0) {
-                const response = await fetch(`http://localhost:8000/api/ticket/getTicketDetails?tIds=${selectedTickets.join(',')}`);
+                const response = await fetch(`https://bluestarbackend.vercel.app/api/api/ticket/getTicketDetails?tIds=${selectedTickets.join(',')}`);
                 const data = await response.json();
 
                 // Chuyển hướng sang trang sửa khách hàng và truyền thông tin khách hàng
@@ -81,7 +81,7 @@ const Ve = () => {
     const handleDelete = async () => {
         setShowConfirmation(false);
             try {
-                const response = await axios.delete(`http://localhost:8000/api/ticket/deleteTicket/${selectedTickets.join(',')}`, {
+                const response = await axios.delete(`https://bluestarbackend.vercel.app/api/api/ticket/deleteTicket/${selectedTickets.join(',')}`, {
                     data: selectedTickets, // Pass the array as data
                     headers: {
                         'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ const Ve = () => {
     const handleSearch = async () => {
         if (searchKeyword != "") {
             try {
-                const response = await fetch(`http://localhost:8000/api/ticket/searchTickets?searchKeyword=${searchKeyword}`);
+                const response = await fetch(`https://bluestarbackend.vercel.app/api/api/ticket/searchTickets?searchKeyword=${searchKeyword}`);
                 const data = await response.json();
                 setTickets(data);
             } catch (error) {
@@ -128,7 +128,7 @@ const Ve = () => {
         }
         else {
             try {
-                const response = await fetch("http://localhost:8000/api/ticket/getTickets");
+                const response = await fetch("https://bluestarbackend.vercel.app/api/api/ticket/getTickets");
                 const data = await response.json();
                 setTickets(data);
             } catch (error) {

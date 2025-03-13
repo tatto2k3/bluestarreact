@@ -52,7 +52,7 @@ export default function ExploreFlight() {
     const GetAllFlights = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.get("http://localhost:8000/api/flight/getExploreFlights");
+            const response = await axios.get("https://bluestarbackend.vercel.app/api/api/flight/getExploreFlights");
             setFlights(response.data);
         } catch (error) {
             console.log("Lỗi khi tải dữ liệu:", error);

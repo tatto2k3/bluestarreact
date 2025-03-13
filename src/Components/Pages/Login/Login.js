@@ -17,7 +17,7 @@ export default function Login() {
 
     const sendTokenToBackend = async (token) => {
         try {
-            const response = await fetch("http://localhost:8000/api/auth/google", {
+            const response = await fetch("https://bluestarbackend.vercel.app/api/api/auth/google", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

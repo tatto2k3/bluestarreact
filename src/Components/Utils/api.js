@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://localhost:8000/api",
+    baseURL: "https://bluestarbackend.vercel.app/api/api",
     headers: {
         "Content-Type": "application/json",
     },
@@ -33,7 +33,7 @@ api.interceptors.response.use(
                 const refreshToken = getRefreshToken();
                 if (!refreshToken) throw new Error("Refresh token không tồn tại");
 
-                const res = await axios.post("http://localhost:8000/api/auth/refresh", {
+                const res = await axios.post("https://bluestarbackend.vercel.app/api/api/auth/refresh", {
                     refresh_token: refreshToken,
                 });
 

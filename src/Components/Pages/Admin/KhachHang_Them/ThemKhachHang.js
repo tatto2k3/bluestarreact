@@ -25,7 +25,7 @@ const ThemKhachHang = () => {
             MAIL: email,
         };
         try {
-        const customerResponse = await fetch("http://localhost:8000/api/customer/addCustomer", {
+        const customerResponse = await fetch("https://bluestarbackend.vercel.app/api/api/customer/addCustomer", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

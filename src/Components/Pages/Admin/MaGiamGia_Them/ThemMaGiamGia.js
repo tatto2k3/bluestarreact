@@ -37,7 +37,7 @@ const ThemMaGiamGia = () => {
         console.log('End Date:', discountData.D_FINISH);
 
         try {
-        const discountResponse = await fetch("http://localhost:8000/api/discount/addDiscount", {
+        const discountResponse = await fetch("https://bluestarbackend.vercel.app/api/api/discount/addDiscount", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

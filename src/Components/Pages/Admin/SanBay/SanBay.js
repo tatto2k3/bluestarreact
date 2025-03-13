@@ -33,7 +33,7 @@ const SanBay = () => {
         // Lấy danh sách khách hàng từ API hoặc nguồn dữ liệu khác
         const fetchData = async () => {
             try {
-                const response = await fetch("http://localhost:8000/api/sanbay/getSanbays");
+                const response = await fetch("https://bluestarbackend.vercel.app/api/api/sanbay/getSanbays");
                 const data = await response.json();
                 setSanbays(data);
             } catch (error) {
@@ -60,7 +60,7 @@ const SanBay = () => {
     const handleShowInfo = async () => {
         try {
             if (selectedSanbays.length > 0) {
-                const response = await fetch(`http://localhost:8000/api/sanbay/getSanbayDetails?airportIds=${selectedSanbays.join(',')}`);
+                const response = await fetch(`https://bluestarbackend.vercel.app/api/api/sanbay/getSanbayDetails?airportIds=${selectedSanbays.join(',')}`);
                 const data = await response.json();
 
                 // Chuyển hướng sang trang sửa khách hàng và truyền thông tin khách hàng
@@ -84,7 +84,7 @@ const SanBay = () => {
     const handleDelete = async () => {
         setShowConfirmation(false);
             try {
-                const response = await axios.delete(`http://localhost:8000/api/sanbay/deleteSanbay/${selectedSanbays.join(',')}`, {
+                const response = await axios.delete(`https://bluestarbackend.vercel.app/api/api/sanbay/deleteSanbay/${selectedSanbays.join(',')}`, {
                     data: selectedSanbays, // Pass the array as data
                     headers: {
                         'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ const SanBay = () => {
     const handleSearch = async () => {
         if (searchKeyword != "") {
             try {
-                const response = await fetch(`http://localhost:8000/api/sanbay/searchSanbays?searchKeyword=${searchKeyword}`);
+                const response = await fetch(`https://bluestarbackend.vercel.app/api/api/sanbay/searchSanbays?searchKeyword=${searchKeyword}`);
                 const data = await response.json();
                 setSanbays(data);
             } catch (error) {
@@ -128,7 +128,7 @@ const SanBay = () => {
         }
         else {
             try {
-                const response = await fetch("http://localhost:8000/api/sanbay/getSanbays");
+                const response = await fetch("https://bluestarbackend.vercel.app/api/api/sanbay/getSanbays");
                 const data = await response.json();
                 setSanbays(data);
             } catch (error) {

@@ -41,7 +41,7 @@ export default function SearchPage() {
                 localStorage.setItem('departFlight', JSON.stringify(flight));
                 setActiveButton("Arrive");
                 setIsLoading(true);
-                axios.get(`http://localhost:8000/api/flight/searchFlight?fromLocation=${searchInfo.ToLocationId}&toLocation=${searchInfo.FromLocationId}&departureDay=${searchInfo.ComeBackTime}`)
+                axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.ToLocationId}&toLocation=${searchInfo.FromLocationId}&departureDay=${searchInfo.ComeBackTime}`)
                     .then(res => {
                         setSearchResult(res.data)
                         setIsLoading(false);
@@ -66,7 +66,7 @@ export default function SearchPage() {
     function HandleReset() {
         setIsLoading(true);
         setActiveTimeLine(null);
-        axios.get(`http://localhost:8000/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}
+        axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}
                                 &departureDay=${searchInfo.DepartTime}`)
             .then(res => {
                 setSearchResult(res.data)
@@ -80,7 +80,7 @@ export default function SearchPage() {
         if (searchInfo.FromLocation != null && searchInfo.ToLocation != null && searchInfo.DepartTime != null && searchInfo.ComeBackTime != null) {
             if (activeButton === "Depart") {
                 setIsLoading(true);
-                axios.get(`http://localhost:8000/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}&departureTime=${depatureTime}&arrivalTime=${arrivalTime}
+                axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}&departureTime=${depatureTime}&arrivalTime=${arrivalTime}
                                 &departureDay=${searchInfo.DepartTime}`)
                     .then(res => {
                         setSearchResult(res.data)
@@ -91,7 +91,7 @@ export default function SearchPage() {
             }
             else {
                 setIsLoading(true);
-                axios.get(`http://localhost:8000/api/flight/searchFlight?fromLocation=${searchInfo.ToLocationId}&toLocation=${searchInfo.FromLocationId}&departureTime=${depatureTime}&arrivalTime=${arrivalTime}
+                axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.ToLocationId}&toLocation=${searchInfo.FromLocationId}&departureTime=${depatureTime}&arrivalTime=${arrivalTime}
                                     &departureDay=${searchInfo.ComeBackTime}`)
                     .then(res => {
                         setSearchResult(res.data)
@@ -107,7 +107,7 @@ export default function SearchPage() {
         if (searchInfo.FromLocation != null && searchInfo.ToLocation != null && searchInfo.DepartTime != null && searchInfo.ComeBackTime != null) {
             if (activeButton === "Depart") {
                 setIsLoading(true);
-                axios.get(`http://localhost:8000/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}&departureDay=${searchInfo.DepartTime}`)
+                axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}&departureDay=${searchInfo.DepartTime}`)
                     .then(res => {
                         setSearchResult(res.data)
                         setIsLoading(false);
@@ -117,7 +117,7 @@ export default function SearchPage() {
             }
             else {
                 setIsLoading(true);
-                axios.get(`http://localhost:8000/api/flight/searchFlight?fromLocation=${searchInfo.ToLocationId}&toLocation=${searchInfo.FromLocationId}&departureDay=${searchInfo.ComeBackTime}`)
+                axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.ToLocationId}&toLocation=${searchInfo.FromLocationId}&departureDay=${searchInfo.ComeBackTime}`)
                     .then(res => {
                         setSearchResult(res.data)
                         setIsLoading(false);
