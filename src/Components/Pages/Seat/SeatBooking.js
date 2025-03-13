@@ -42,8 +42,9 @@ export default function SeatBooking() {
 
 
     useEffect(() => {
-        axios.get("https://bluestarbackend.vercel.app/api/api/seat/getAllSeats")
+        axios.get("http://localhost:8000/api/seat/getAllSeats")
             .then(response => {
+                console.log(response);
                 setSeat(response.data);
             })
             .catch(error => {

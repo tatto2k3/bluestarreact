@@ -3,7 +3,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import { AuthProvider } from '../src/Components/Layouts/Header/AuthService';
+import { AuthProvider } from '../src/Components/Utils/AuthService';
 
 const baseElement = document.getElementsByTagName('base')[0];
 const baseUrl = baseElement?.getAttribute('href') ?? '/';

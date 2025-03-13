@@ -7,9 +7,11 @@ import { useLocation } from 'react-router-dom';
 import CustomCalendar from './Calendar/CustomCalendar';
 import axios from "axios";
 import Country from './Country/Country';
+import { useAuth } from '../../Utils/AuthService';
 import { useSearch } from '../../CustomHooks/SearchContext';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Booking({ onSearch, setIsLoadingLayout, setIsSearchVisible }) {
     const [countries, setCountries] = useState([]);
@@ -19,6 +21,9 @@ export default function Booking({ onSearch, setIsLoadingLayout, setIsSearchVisib
     const [searchResult, setSearchResult, isLoading, setIsLoading, searchInfo, setSearchInfo, tripType, setTripType, airport, setAirport] = useSearch();
     const countryElement = useRef()
     const passengerRef = useRef(null);
+    const [myBookingType, setMyBookingType] = useState("notMember");
+    const { isLoggedIn, logout, avatar, setAvatar, name, setName } = useAuth();
+    const navigate = useNavigate();
 
     const handleTabChange = (tab) => {
         setSelectedTab(tab);
@@ -26,7 +31,7 @@ export default function Booking({ onSearch, setIsLoadingLayout, setIsSearchVisib
 
     const GetAllCountries = async () => {
         try {
-            const response = await axios.get("https://bluestarbackend.vercel.app/api/api/airport/getAirports");
+            const response = await axios.get("http://localhost:8000/api/airport/getAirports");
             setCountries(response.data);
         } catch (error) {
             console.log(error);
@@ -60,6 +65,11 @@ export default function Booking({ onSearch, setIsLoadingLayout, setIsSearchVisib
     const handleTripTypeChange = (event) => {
         setTripType(event.target.value);
     };
+
+    const handleMyBookingTypeChange = (event) => {
+        setMyBookingType(event.target.value);
+    };
+
     const clickedOutside = (event) => {
         if (
             !timeElement.current?.contains(event.target) &&
@@ -112,40 +122,51 @@ export default function Booking({ onSearch, setIsLoadingLayout, setIsSearchVisib
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-          if (passengerRef.current && !passengerRef.current.contains(event.target)) {
-            setShowPassenger(false);
-          }
+            if (passengerRef.current && !passengerRef.current.contains(event.target)) {
+                setShowPassenger(false);
+            }
         };
-    
-        if (showPassenger) {
-          document.addEventListener("mousedown", handleClickOutside);
-        }
-    
-        return () => {
-          document.removeEventListener("mousedown", handleClickOutside);
-        };
-      }, [showPassenger]);
 
+        if (showPassenger) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [showPassenger]);
+
+    const handleClickLogin = () => {
+        navigate("/sign-in");
+    }
+
+    const [ticketCode, setTicketCode] = useState("");
+    const [fullName, setFullName] = useState("");
+
+    const handleSearchTicketNotLogin = async () => {
+        if (!ticketCode || !fullName) {
+            alert("Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
+        navigate(`/ticket-review/${ticketCode}/${fullName}`);
+    };
 
     return (
         <div className="booking-wrapper">
             {
-                (<>
-                    {/*Booking header*/}
+                <>
                     <div className="booking-header">
                         <div className={`buy-ticket ${selectedTab === "booking" ? "active" : ""}`} onClick={() => handleTabChange("booking")}>
                             <p className="buy-ticket-title">Đặt vé máy bay</p>
                         </div>
-                        <div className={`check-in ${selectedTab === "checkIn" ? "active" : ""}`} onClick={() => handleTabChange("checkIn")}>
-                            <p className="check-in-title">Làm thủ tục</p>
-                        </div>
+
                         <div className={`my-booking ${selectedTab === "myBooking" ? "active" : ""}`} onClick={() => handleTabChange("myBooking")}>
                             <p className="my-booking-title">Đặt chỗ của tôi</p>
                         </div>
                     </div>
-                    <div className="booking-body">
-                        {selectedTab === "booking" && (
-                            <>
+                    {selectedTab === "booking" && (
+                        <>
+                            <div className="booking-body">
                                 <div className="booking-checkbox-wrapper">
                                     <div className="flight_one_way">
                                         <label className="option_label">
@@ -159,7 +180,7 @@ export default function Booking({ onSearch, setIsLoadingLayout, setIsSearchVisib
                                         </label>
                                     </div>
                                     {/*Round-trip-checkbox*/}
-                                    <div className="flight_round-trip">
+                                    {/* <div className="flight_round-trip">
                                         <label className="option_label">
                                             <input
                                                 type="radio"
@@ -169,7 +190,7 @@ export default function Booking({ onSearch, setIsLoadingLayout, setIsSearchVisib
                                             />
                                             <span>Khứ hồi</span>
                                         </label>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className="booking-body">
                                     <div className="booking-body-details d-flex">
@@ -352,37 +373,108 @@ export default function Booking({ onSearch, setIsLoadingLayout, setIsSearchVisib
                                         </div>
                                     </div>
                                 </div>
-                            </>
-                        )}
-                    </div>
-
-                    <div className="button_container">
-                        <Button variant="contained" size="large" startIcon={<SendIcon />} className="custom-button" onClick={() => {
-                            setIsLoadingLayout(true);
-                            setIsSearchVisible(true);
-                            setIsLoading(true);
-                            axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}
+                            </div>
+                            <div className="button_container">
+                                <Button variant="contained" size="large" startIcon={<SendIcon />} className="custom-button" onClick={() => {
+                                    setIsLoadingLayout(true);
+                                    setIsSearchVisible(true);
+                                    setIsLoading(true);
+                                    axios.get(`http://localhost:8000/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}
                                 &departureDay=${formatDate(searchInfo.DepartTime)}`)
-                                .then(res => {
-                                    setSearchResult(res.data);
-                                    setIsLoadingLayout(false);
-                                    setIsLoading(false);
-                                    if (onSearch) {
-                                        onSearch(res.data);
-                                    }
-                                })
-                                .catch(error => {
-                                    console.log(error);
-                                    setIsLoadingLayout(false);
-                                });
-                            localStorage.setItem("numberTickets", adults + children);
-                        }}>
-                            Tìm chuyến bay
-                        </Button>
-                    </div>
-                </>)
+                                        .then(res => {
+                                            setSearchResult(res.data);
+                                            setIsLoadingLayout(false);
+                                            setIsLoading(false);
+                                            if (onSearch) {
+                                                onSearch(res.data);
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.log(error);
+                                            setIsLoadingLayout(false);
+                                        });
+                                    localStorage.setItem("numberTickets", adults + children);
+                                }}>
+                                    Tìm chuyến bay
+                                </Button>
+                            </div>
+                        </>
+                    )}
+                    {selectedTab === "myBooking" && (
+                        <>
+                            <div className="booking-body">
+                                <div className="booking-checkbox-wrapper">
+                                    <div className="flight_one_way">
+                                        <label className="option_label">
+                                            <input
+                                                type="radio"
+                                                value="notMember"
+                                                checked={myBookingType === "notMember"}
+                                                onChange={handleMyBookingTypeChange}
+                                            />
+                                            <span>Mã đặt chỗ/Số vé</span>
+                                        </label>
+                                    </div>
+                                    {/* <div className="flight_round-trip">
+                                        <label className="option_label">
+                                            <input
+                                                type="radio"
+                                                value="isMember"
+                                                checked={myBookingType === "isMember"}
+                                                onChange={handleMyBookingTypeChange}
+                                            />
+                                            <span>Hội viên Bluestar Club</span>
+                                        </label>
+                                    </div> */}
+                                </div>
+                                {myBookingType === "notMember" && (
+                                    <div className="booking-body-mybooking">
+                                        <div className='ticket-code'>
+                                            <p>Mã đặt chỗ/số vé</p>
+                                            <input
+                                                name="ticket-code"
+                                                placeholder="123xxxxxxx"
+                                                value={ticketCode}
+                                                onChange={(e) => setTicketCode(e.target.value)}
+                                            />
+                                        </div>
+                                        <div className='ticket-code'>
+                                            <p>Họ và tên</p>
+                                            <input
+                                                name="full_name"
+                                                placeholder="NGUYEN VAN A"
+                                                value={fullName}
+                                                onChange={(e) => setFullName(e.target.value)}
+                                            />
+                                        </div>
+                                        <div className="button-mybooking" onClick={() => handleSearchTicketNotLogin()}>
+                                            <div className="custom-button-mybooking">
+                                                Tìm kiếm
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                                {myBookingType === "isMember" && (
+                                    <div className="booking-body-mybooking">
+                                        {isLoggedIn ? (
+                                            <div className="custom-button-mybooking" style={{ width: '150px' }}>Tìm kiếm</div>
+                                        ) : (
+                                            <div>
+                                                <p>Đăng nhập vào Bluestar Club để xem chuyến bay sắp tới của bạn.</p>
+                                                <div className="button-mybooking-login">
+                                                    <div className="custom-button-mybooking-login" onClick={handleClickLogin}>
+                                                        Đăng nhập
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                        </>
+                    )}
+                </>
             }
-
         </div >
     )
 }

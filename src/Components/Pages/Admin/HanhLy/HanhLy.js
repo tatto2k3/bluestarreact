@@ -30,7 +30,7 @@ const HanhLy = () => {
         // Lấy danh sách khách hàng từ API hoặc nguồn dữ liệu khác
         const fetchData = async () => {
             try {
-                const response = await fetch("https://bluestarbackend.vercel.app/api/api/luggage/getLuggages");
+                const response = await fetch("http://localhost:8000/api/luggage/getLuggages");
                 const data = await response.json();
                 setLuggages(data);
             } catch (error) {
@@ -57,7 +57,7 @@ const HanhLy = () => {
     const handleShowInfo = async () => {
         try {
             if (selectedLuggages.length > 0) {
-                const response = await fetch(`https://bluestarbackend.vercel.app/api/api/luggage/getLuggageDetails?luggage_Ids=${selectedLuggages.join(',')}`);
+                const response = await fetch(`http://localhost:8000/api/luggage/getLuggageDetails?luggage_Ids=${selectedLuggages.join(',')}`);
                 const data = await response.json();
 
                 // Chuyển hướng sang trang sửa khách hàng và truyền thông tin khách hàng
@@ -81,7 +81,7 @@ const HanhLy = () => {
     const handleDelete = async () => {
         setShowConfirmation(false);
             try {
-                const response = await axios.delete(`https://bluestarbackend.vercel.app/api/api/luggage/deleteLuggage/${selectedLuggages.join(',')}`, {
+                const response = await axios.delete(`http://localhost:8000/api/luggage/deleteLuggage/${selectedLuggages.join(',')}`, {
                     data: selectedLuggages, // Pass the array as data
                     headers: {
                         'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ const HanhLy = () => {
     const handleSearch = async () => {
         if (searchKeyword != "") {
             try {
-                const response = await fetch(`https://bluestarbackend.vercel.app/api/api/luggage/searchLuggages?searchKeyword=${searchKeyword}`);
+                const response = await fetch(`http://localhost:8000/api/luggage/searchLuggages?searchKeyword=${searchKeyword}`);
                 const data = await response.json();
                 setLuggages(data);
             } catch (error) {
@@ -126,7 +126,7 @@ const HanhLy = () => {
         }
         else {
             try {
-                const response = await fetch("https://bluestarbackend.vercel.app/api/api/luggage/getLuggages");
+                const response = await fetch("http://localhost:8000/api/luggage/getLuggages");
                 const data = await response.json();
                 setLuggages(data);
             } catch (error) {

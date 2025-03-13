@@ -1,12 +1,12 @@
 ﻿import React, { useState } from 'react';
-import Header from '../Header/Header';
+import HeaderNav from '../HeaderNav/HeaderNav';
 import "./MainLayoutLogin.css"
 import Footer from '../Footer/Footer';
 
 export default function MainLayOut({ children }) {
     return (
         <>
-            <Header />
+            <HeaderNav />
             {children}  
             <Footer/>             
         </>

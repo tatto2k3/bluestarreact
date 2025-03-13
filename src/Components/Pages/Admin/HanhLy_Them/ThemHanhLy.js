@@ -23,7 +23,7 @@ const ThemHanhLy = () => {
             PRICE: price,
         };
         try {
-        const luggageResponse = await fetch("https://bluestarbackend.vercel.app/api/api/luggage/addLuggage", {
+        const luggageResponse = await fetch("http://localhost:8000/api/luggage/addLuggage", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

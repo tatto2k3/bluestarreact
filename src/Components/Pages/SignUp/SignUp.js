@@ -31,7 +31,7 @@ export default function SignUp() {
 
         };
         try {
-            const response = await fetch('https://bluestarbackend.vercel.app/api/api/account/register', {
+            const response = await fetch('http://localhost:8000/api/account/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

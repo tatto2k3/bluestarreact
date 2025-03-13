@@ -1,4 +1,4 @@
-﻿.navbar img {
+﻿.navbar > .logo-rotate {
     width: 60px;
     margin-left: 10px;
 }
@@ -116,13 +116,13 @@
     }
 }
 
-
 .header-body {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 65vh;
+    margin-top: 10px;
 }
 
 .header-image {

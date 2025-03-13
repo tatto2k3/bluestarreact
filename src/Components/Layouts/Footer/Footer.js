@@ -14,7 +14,7 @@ const Footer = () => {
         <div className='footer-links'>
             <div className='footer-links_contact'>
                 <h1 className='footer-headtext'>Liên hệ</h1>
-                <p>Trường Đại học Công nghệ Thông tin</p>
+                <p>Hãng hàng không Bluestar</p>
                 <p>+84 858-203-246</p>
                 <p>+84 845-555-357</p>
             </div>

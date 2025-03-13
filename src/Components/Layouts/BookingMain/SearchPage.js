@@ -32,8 +32,6 @@ export default function SearchPage() {
         queryAPI(depatureTime, arrivalTime);
     };
 
-    console.log("total_flight:", searchResult);
-
     const navigate = useNavigate();
     const handleTicketClick = (flight) => {
         if (tripType === "roundTrip") {
@@ -43,7 +41,7 @@ export default function SearchPage() {
                 localStorage.setItem('departFlight', JSON.stringify(flight));
                 setActiveButton("Arrive");
                 setIsLoading(true);
-                axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.ToLocationId}&toLocation=${searchInfo.FromLocationId}&departureDay=${searchInfo.ComeBackTime}`)
+                axios.get(`http://localhost:8000/api/flight/searchFlight?fromLocation=${searchInfo.ToLocationId}&toLocation=${searchInfo.FromLocationId}&departureDay=${searchInfo.ComeBackTime}`)
                     .then(res => {
                         setSearchResult(res.data)
                         setIsLoading(false);
@@ -68,7 +66,7 @@ export default function SearchPage() {
     function HandleReset() {
         setIsLoading(true);
         setActiveTimeLine(null);
-        axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}
+        axios.get(`http://localhost:8000/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}
                                 &departureDay=${searchInfo.DepartTime}`)
             .then(res => {
                 setSearchResult(res.data)
@@ -82,7 +80,7 @@ export default function SearchPage() {
         if (searchInfo.FromLocation != null && searchInfo.ToLocation != null && searchInfo.DepartTime != null && searchInfo.ComeBackTime != null) {
             if (activeButton === "Depart") {
                 setIsLoading(true);
-                axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}&departureTime=${depatureTime}&arrivalTime=${arrivalTime}
+                axios.get(`http://localhost:8000/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}&departureTime=${depatureTime}&arrivalTime=${arrivalTime}
                                 &departureDay=${searchInfo.DepartTime}`)
                     .then(res => {
                         setSearchResult(res.data)
@@ -93,7 +91,7 @@ export default function SearchPage() {
             }
             else {
                 setIsLoading(true);
-                axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.ToLocationId}&toLocation=${searchInfo.FromLocationId}&departureTime=${depatureTime}&arrivalTime=${arrivalTime}
+                axios.get(`http://localhost:8000/api/flight/searchFlight?fromLocation=${searchInfo.ToLocationId}&toLocation=${searchInfo.FromLocationId}&departureTime=${depatureTime}&arrivalTime=${arrivalTime}
                                     &departureDay=${searchInfo.ComeBackTime}`)
                     .then(res => {
                         setSearchResult(res.data)
@@ -109,7 +107,7 @@ export default function SearchPage() {
         if (searchInfo.FromLocation != null && searchInfo.ToLocation != null && searchInfo.DepartTime != null && searchInfo.ComeBackTime != null) {
             if (activeButton === "Depart") {
                 setIsLoading(true);
-                axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}&departureDay=${searchInfo.DepartTime}`)
+                axios.get(`http://localhost:8000/api/flight/searchFlight?fromLocation=${searchInfo.FromLocationId}&toLocation=${searchInfo.ToLocationId}&departureDay=${searchInfo.DepartTime}`)
                     .then(res => {
                         setSearchResult(res.data)
                         setIsLoading(false);
@@ -119,7 +117,7 @@ export default function SearchPage() {
             }
             else {
                 setIsLoading(true);
-                axios.get(`https://bluestarbackend.vercel.app/api/api/flight/searchFlight?fromLocation=${searchInfo.ToLocationId}&toLocation=${searchInfo.FromLocationId}&departureDay=${searchInfo.ComeBackTime}`)
+                axios.get(`http://localhost:8000/api/flight/searchFlight?fromLocation=${searchInfo.ToLocationId}&toLocation=${searchInfo.FromLocationId}&departureDay=${searchInfo.ComeBackTime}`)
                     .then(res => {
                         setSearchResult(res.data)
                         setIsLoading(false);
@@ -249,7 +247,6 @@ export default function SearchPage() {
         </Grid>
         <Grid item md={8}>
             <div className="sort_header">
-
                 {searchResult.flights && searchResult.flights.length > 0 && searchResult.flights[0] && (
                     <div className="search-result-header">
                         <h6>
@@ -269,9 +266,7 @@ export default function SearchPage() {
                                 </div>
                             )
                         }
-
                     </div>
-
                 )}
             </div>
             <div className="ticker-result-wrapper">
@@ -281,7 +276,6 @@ export default function SearchPage() {
                             <div>
                                 {searchResult.flights.map((fl, index) => {
                                     const originalPrice = parseFloat(fl.originalPrice);
-                                    console.log(originalPrice)
 
                                     if (!isNaN(originalPrice) && originalPrice >= minPrice && originalPrice <= maxPrice) {
                                         return (

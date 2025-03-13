@@ -4,88 +4,22 @@ import './ExploreFlight.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortDown } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { useSearch } from '../../CustomHooks/SearchContext';
 import Booking from '../../Layouts/BKP/Booking';
 import axios from "axios";
 import { useLocation } from 'react-router-dom';
 import CustomCalendar from '../../Layouts/BKP/Calendar/CustomCalendar';
 import Country from '../../Layouts/BKP/Country/Country';
+import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
+import { useSearch } from '../../CustomHooks/SearchContext';
+import { useNavigate } from 'react-router-dom';
+import Loading from '../../LoadingAnimation/Loading';
 
 
 export default function ExploreFlight() {
+    const [isLoading, setIsLoading, tripType, setTripType, departFlight, setDepartFlight] = useSearch();
     const [isOpen, setIsOpen] = useState(false);
 
     const [flights, setFlights] = useState([]);
-
-    // const flights = [
-    //     {
-    //         image: "https://bamboo.useleadr.com/uploads/medium_SGN_resize_45ce3292ab.jpg",
-    //         route: "Tp. Hồ Chí Minh (SGN) → Bangkok (DMK)",
-    //         date: "06/03/2025",
-    //         price: "1,663,000",
-    //     },
-    //     {
-    //         image: "https://bamboo.useleadr.com/uploads/medium_SGN_resize_45ce3292ab.jpg",
-    //         route: "Hà Nội (HAN) → Tp. Hồ Chí Minh (SGN)",
-    //         date: "06/03/2025",
-    //         price: "1,663,000",
-    //     },
-    //     {
-    //         image: "https://bamboo.useleadr.com/uploads/medium_SGN_resize_45ce3292ab.jpg",
-    //         route: "Hà Nội (HAN) → Tp. Hồ Chí Minh (SGN)",
-    //         date: "06/03/2025",
-    //         price: "1,663,000",
-    //     },
-
-    //     {
-    //         image: "https://bamboo.useleadr.com/uploads/medium_SGN_resize_45ce3292ab.jpg",
-    //         route: "Hà Nội (HAN) → Tp. Hồ Chí Minh (SGN)",
-    //         date: "06/03/2025",
-    //         price: "1,663,000",
-    //     },
-
-    //     {
-    //         image: "https://bamboo.useleadr.com/uploads/medium_SGN_resize_45ce3292ab.jpg",
-    //         route: "Hà Nội (HAN) → Tp. Hồ Chí Minh (SGN)",
-    //         date: "06/03/2025",
-    //         price: "1,663,000",
-    //     },
-
-    //     {
-    //         image: "https://bamboo.useleadr.com/uploads/medium_SGN_resize_45ce3292ab.jpg",
-    //         route: "Hà Nội (HAN) → Tp. Hồ Chí Minh (SGN)",
-    //         date: "06/03/2025",
-    //         price: "1,663,000",
-    //     },
-
-    //     {
-    //         image: "https://bamboo.useleadr.com/uploads/medium_SGN_resize_45ce3292ab.jpg",
-    //         route: "Hà Nội (HAN) → Tp. Hồ Chí Minh (SGN)",
-    //         date: "06/03/2025",
-    //         price: "1,663,000",
-    //     },
-
-    //     {
-    //         image: "https://bamboo.useleadr.com/uploads/medium_SGN_resize_45ce3292ab.jpg",
-    //         route: "Hà Nội (HAN) → Tp. Hồ Chí Minh (SGN)",
-    //         date: "06/03/2025",
-    //         price: "1,663,000",
-    //     },
-
-    //     {
-    //         image: "https://bamboo.useleadr.com/uploads/medium_SGN_resize_45ce3292ab.jpg",
-    //         route: "Hà Nội (HAN) → Tp. Hồ Chí Minh (SGN)",
-    //         date: "06/03/2025",
-    //         price: "1,663,000",
-    //     },
-
-    //     {
-    //         image: "https://bamboo.useleadr.com/uploads/medium_SGN_resize_45ce3292ab.jpg",
-    //         route: "Hà Nội (HAN) → Tp. Hồ Chí Minh (SGN)",
-    //         date: "06/03/2025",
-    //         price: "1,663,000",
-    //     },
-    // ];
 
     const [visibleCount, setVisibleCount] = useState(8);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -93,95 +27,86 @@ export default function ExploreFlight() {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showAllFlights = () => setVisibleCount(flights.length);
+    const [selectedFlight, setSelectedFlight] = useState(null);
 
-    const openModal = () => {
-        setIsModalVisible(true);
-        setTimeout(() => setIsModalOpen(true), 300);
+    const openModal = (flight) => {
+        setSelectedFlight(flight);
     };
+
+    useEffect(() => {
+        if (selectedFlight) {
+            console.log("Updated selectedFlight:", selectedFlight);
+            setIsModalVisible(true);
+            setTimeout(() => setIsModalOpen(true), 300);
+        }
+    }, [selectedFlight]);
 
     const closeModal = () => {
-        setIsModalVisible(false);
-        setTimeout(() => setIsModalOpen(false), 300);
-    };
-
-    const [countries, setCountries] = useState([]);
-    const [selectedTab, setSelectedTab] = useState("booking");
-    const [isOpenCountry, setIsOpenCountry] = useState(false);
-    const [CountryClass, setCountryClass] = useState("");
-    const [searchResult, setSearchResult, isLoading, setIsLoading, searchInfo, setSearchInfo, tripType, setTripType, airport, setAirport] = useSearch();
-    const countryElement = useRef()
-
-    const handleTabChange = (tab) => {
-        setSelectedTab(tab);
+        setIsModalOpen(false);
+        setTimeout(() => {
+            setIsModalVisible(false);
+            setSelectedFlight(null);
+        }, 300);
     };
 
     const GetAllFlights = async () => {
+        setIsLoading(true);
         try {
-            const response = await axios.get("https://bluestarbackend.vercel.app/api/api/flight/getExploreFlights");
+            const response = await axios.get("http://localhost:8000/api/flight/getExploreFlights");
             setFlights(response.data);
-            console.log(response.data);
         } catch (error) {
-            console.log(error);
+            console.log("Lỗi khi tải dữ liệu:", error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     useEffect(() => {
         GetAllFlights();
     }, []);
-    const [isFocusedGroup, setFocusedGroup] = useState({
-        FromLocationIsFocused: false,
-        ToLocationIsFocused: false,
-        DepartTimeIsFocused: false,
-        ComeBackTimeIsFocused: false
-    })
-    const [timelineClass, setTimelineClass] = useState("");
-    const timeElement = useRef();
-    const tripTimeDepartElement = useRef();
-    const tripTimeDesElement = useRef();
-    const departureElement = useRef();
-    const destinationElement = useRef();
-    const [isOpenTimeLine, setIsOpenTimeline] = useState(false);
-    const location = useLocation();
-    const pathname = location.pathname;
-    const routeName = pathname.split('/').filter(Boolean)[0];
-    const [isHidden, setisHidden] = useState({
-        fromAirportIsHidden: "hiden",
-        toAirportIsHidden: "hiden"
-    })
-    /* console.log(routeName);*/
-    {/*Function thay đổi checkbox */ }
+
+
     const handleTripTypeChange = (event) => {
         setTripType(event.target.value);
     };
-    const clickedOutside = (event) => {
-        if (
-            !timeElement.current?.contains(event.target) &&
-            !tripTimeDepartElement.current?.contains(event.target) &&
-            !tripTimeDesElement.current?.contains(event.target)
-        ) {
-            setIsOpenTimeline(false);
+
+    const [showPassenger, setShowPassenger] = useState(false);
+    const [adults, setAdults] = useState(1);
+    const [children, setChildren] = useState(0);
+    const passengerRef = useRef(null);
+
+    const handleChange = (type, operation) => {
+        if (type === "adults") {
+            setAdults((prev) => Math.max(1, operation === "increase" ? prev + 1 : prev - 1));
+        } else if (type === "children") {
+            setChildren((prev) => Math.max(0, operation === "increase" ? prev + 1 : prev - 1));
         }
     };
-    const clickedOutsideCountry = (event) => {
-        if (
-            !countryElement.current?.contains(event.target) &&
-            !departureElement.current?.contains(event.target) &&
-            !destinationElement.current?.contains(event.target)
-        ) {
-            setIsOpenCountry(false);
-        }
-    };
+
+
     useEffect(() => {
-        document.addEventListener("click", clickedOutside, true);
-        document.addEventListener("click", clickedOutsideCountry, true);
-        return () => {
-            document.removeEventListener("click", clickedOutside, true);
-            document.removeEventListener("click", clickedOutsideCountry, true);
+        const handleClickOutside = (event) => {
+            if (passengerRef.current && !passengerRef.current.contains(event.target)) {
+                setShowPassenger(false);
+            }
         };
-    });
 
+        if (showPassenger) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
 
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [showPassenger]);
 
+    const navigate = useNavigate();
+    const handleModalSubmit = () => {
+        setDepartFlight(selectedFlight);
+        localStorage.setItem('departFlight', JSON.stringify(selectedFlight));
+        navigate("/ticket");
+        localStorage.setItem("numberTickets", adults + children);
+    }
 
     return (
         <>
@@ -190,71 +115,42 @@ export default function ExploreFlight() {
                     Khám Phá Các Chuyến Bay Phổ Biến Nhất Của Chúng Tôi
                 </p>
             </div>
-            <div className='button-filter'>
-                <button
-                    type="button"
-                    id="route-selector"
-                    aria-label="Chọn tuyến đường"
-                    aria-haspopup="true"
-                    aria-expanded={isOpen}
-                    className="btn-route"
-                    onClick={() => setIsOpen(!isOpen)}
-                >
-                    <span className="btn-text">Chọn tuyến đường</span>
-                    <div aria-hidden="true" className="icon-container">
-                        <FontAwesomeIcon icon={faSortDown} />
-                    </div>
-                </button>
-
-                <button
-                    type="button"
-                    id="budget-selector"
-                    aria-label="Ngân sách"
-                    aria-haspopup="true"
-                    aria-expanded={isOpen}
-                    className="btn-budget btn-route"
-                    onClick={() => setIsOpen(!isOpen)}
-                >
-                    <span className="btn-text">Ngân sách</span>
-                    <div aria-hidden="true" className="icon-container">
-                        <FontAwesomeIcon icon={faSortDown} />
-                    </div>
-                </button>
-
-                <div className="btn-delete">
-                    <p className='btn-delete-title'>XÓA</p>
-                </div>
-            </div>
             <div className='section-flights'>
-                <div className='section-flights-list'>
-                    {flights.slice(0, visibleCount).map((flight, index) => (
-                        <div key={index} className="flight-card">
-                            <img src={flight.to_airport.img} alt="Flight" className="flight-image" />
-                            <div className="flight-content">
-                                <h2 className="flight-route">{flight.from_airport.place} ({flight.from_airport.id})</h2>
-                                <h2 className="flight-route">đến {flight.to_airport.place} ({flight.to_airport.id})</h2>
-                                <p className="flight-date">Ngày đi: {flight.departureDay}</p>
-                                <div className="flight-price-info">
-                                    <span className="flight-price-label">chỉ từ </span>
-                                    <span className="popular-flights-price-info">(VND)</span>
-                                </div>
-                                <div className="footer-card">
+                {isLoading ? (
+                    <div className="loading-icons">
+                        <Loading />
+                    </div>
+                ) : (
+                    <div className="section-flights-list">
+                        {flights.slice(0, visibleCount).map((flight, index) => (
+                            <div key={index} className="flight-card">
+                                <img src={flight.to_airport.img} alt="Flight" className="flight-image" />
+                                <div className="flight-content">
+                                    <h2 className="flight-route">{flight.from_airport.place} ({flight.from_airport.id})</h2>
+                                    <h2 className="flight-route">đến {flight.to_airport.place} ({flight.to_airport.id})</h2>
+                                    <p className="flight-date">Ngày đi: {flight.departureDay}</p>
                                     <div className="flight-price-info">
-                                        <p className="flight-price">
-                                            {flight.originalPrice ? Number(flight.originalPrice).toLocaleString() : "N/A"}
-                                        </p>
-                                        <p className="flight-type">Một chiều</p>
+                                        <span className="flight-price-label">chỉ từ </span>
+                                        <span className="popular-flights-price-info">(VND)</span>
                                     </div>
-                                    <div className="booking-now" onClick={openModal}>
-                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M10.0007 3.33325L8.82565 4.50825L13.4757 9.16658H3.33398V10.8333H13.4757L8.82565 15.4916L10.0007 16.6666L16.6673 9.99992L10.0007 3.33325Z" fill="#00558F"></path>
-                                        </svg>
+                                    <div className="footer-card">
+                                        <div className="flight-price-info">
+                                            <p className="flight-price">
+                                                {flight.originalPrice ? Number(flight.originalPrice).toLocaleString() : "N/A"}
+                                            </p>
+                                            <p className="flight-type">Một chiều</p>
+                                        </div>
+                                        <div className="booking-now" onClick={() => openModal(flight)}>
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M10.0007 3.33325L8.82565 4.50825L13.4757 9.16658H3.33398V10.8333H13.4757L8.82565 15.4916L10.0007 16.6666L16.6673 9.99992L10.0007 3.33325Z" fill="#00558F"></path>
+                                            </svg>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                )}
                 {visibleCount < flights.length && (
                     <button className="btn-show-more" onClick={showAllFlights}>Xem thêm</button>
                 )}
@@ -295,106 +191,47 @@ export default function ExploreFlight() {
                                 <div className="booking-body-details">
                                     <div className="booking-location d-flex border-booking">
                                         <div className="booking-location-time">
-                                            <label className={isFocusedGroup.FromLocationIsFocused || searchInfo.FromLocation !== "" ? "Up booking-body-text-color" : "notUp booking-body-text-color"}>
+                                            <label className={selectedFlight.from_airport.place ? "Up booking-body-text-color" : "notUp booking-body-text-color"}>
                                                 Nơi đi
                                             </label>
-                                            <div className="input-main" ref={departureElement}>
+                                            <div className="input-main" >
                                                 <input type="text"
-                                                    onFocus={() => {
-                                                        setFocusedGroup({
-                                                            ...isFocusedGroup, FromLocationIsFocused: true
-                                                        })
-                                                        setIsOpenCountry(true)
-                                                        setCountryClass("list_countries");
-
-                                                        console.log(isFocusedGroup)
-                                                    }}
-                                                    onBlur={() => {
-                                                        setFocusedGroup({
-                                                            ...isFocusedGroup, FromLocationIsFocused: false
-                                                        })
-                                                        console.log(isFocusedGroup)
-                                                    }}
-                                                    value={searchInfo.FromLocation}
+                                                    value={selectedFlight.from_airport.place ?? ''}
                                                 ></input>
-                                                <h6 className={`airport-name-day booking-body-text-color ${isHidden.fromAirportIsHidden}`}>
-                                                    {airport.fromAirport}
-                                                </h6>
+                                                <span className={`airport-name-day booking-body-text-color`} style={{ textAlign: "left", fontSize: "15px" }}>
+                                                    {selectedFlight.from_airport.name ?? ''}
+                                                </span>
                                             </div>
-                                            {isOpenCountry && (
-                                                <div className={CountryClass} ref={countryElement}>
-                                                    <div className="List_Countries_Wrapper">
-                                                        <div className="Scroll_Custom">
-                                                            <Country
-                                                                countries={countries}
-                                                                setSearchInfo={setSearchInfo}
-                                                                searchInfo={searchInfo}
-                                                                CountryClass={CountryClass}
-                                                                setIsOpenCountry={setIsOpenCountry}
-                                                                setAirport={setAirport}
-                                                                Airport={airport}
-                                                                isHidden={isHidden}
-                                                                setisHidden={setisHidden}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )}
                                         </div>
                                         <div className="booking-location-time booking-border-left" >
-                                            <label className={isFocusedGroup.ToLocationIsFocused || searchInfo.ToLocation !== "" ? "Up booking-body-text-color" : "notUp booking-body-text-color"}>
+                                            <label className={selectedFlight.to_airport.place ? "Up booking-body-text-color" : "notUp booking-body-text-color"}>
                                                 Nơi đến
                                             </label>
-                                            <div className="input-main" ref={destinationElement}>
+                                            <div className="input-main" >
                                                 <input type="text"
-                                                    onFocus={() => {
-                                                        setFocusedGroup({
-                                                            ...isFocusedGroup, ToLocationIsFocused: true
-                                                        })
-                                                        setIsOpenCountry(true);
-                                                        setCountryClass("list_countries right");
-
-                                                    }}
-                                                    onBlur={() => {
-                                                        setFocusedGroup({
-                                                            ...isFocusedGroup, ToLocationIsFocused: false
-                                                        })
-
-                                                    }}
-                                                    value={searchInfo.ToLocation}
+                                                    value={selectedFlight.to_airport.place ?? ''}
                                                 ></input>
-                                                <h6 className={`airport-name-day booking-body-text-color ${isHidden.toAirportIsHidden}`}>
-                                                    {airport.toAirport}
-                                                </h6>
+                                                <span className={`airport-name-day booking-body-text-color`} style={{ textAlign: "left", fontSize: "15px" }}>
+                                                    {selectedFlight.from_airport.name ?? ''}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="booking-location d-flex border-booking" style={{ marginTop: "20px" }}>
-                                        <div className="booking-location-time" ref={tripTimeDepartElement}>
-                                            <label className={isFocusedGroup.DepartTimeIsFocused || searchInfo.DepartTime !== "" ? "Up booking-body-text-color" : "notUp booking-body-text-color "}>
+                                        <div className="booking-location-time" >
+                                            <label className={selectedFlight.departureDay ? "Up booking-body-text-color" : "notUp booking-body-text-color "}>
                                                 Ngày đi
                                             </label>
                                             <div className="input-main">
                                                 <input type="text"
-                                                    onFocus={() => {
-                                                        setFocusedGroup({ ...isFocusedGroup, DepartTimeIsFocused: true })
-                                                        setIsOpenTimeline(true);
-                                                        setTimelineClass("calendar_wrapper_up");
-                                                    }}
-                                                    onBlur={() => {
-                                                        setFocusedGroup({ ...isFocusedGroup, DepartTimeIsFocused: false })
-                                                    }}
-                                                    value={searchInfo.DepartTime}
+                                                    value={selectedFlight.departureDay ?? ''}
                                                 >
                                                 </input>
-                                                <h6 className="airport-name-day booking-body-text-color hiden">
-                                                    Day
-                                                </h6>
                                             </div>
                                         </div>
-                                        {
+                                        {/* {
                                             tripType === "roundTrip" &&
-                                            (<div className="booking-location-time booking-border-left-half" ref={tripTimeDesElement}>
+                                            (<div className="booking-location-time booking-border-left-half">
                                                 <label className={isFocusedGroup.ComeBackTimeIsFocused || searchInfo.ComeBackTime !== "" ? "Up booking-body-text-color" : "notUp booking-body-text-color "}>
                                                     Ngày về
                                                 </label>
@@ -417,36 +254,50 @@ export default function ExploreFlight() {
                                                 </div>
 
                                             </div>)
-                                        }
+                                        } */}
 
                                         {/*passenger*/}
-                                        <div className="booking-location-time booking-border-left-half">
-                                            <label className="Up booking-body-text-color">
-                                                Hành Khách
-                                            </label>
+                                        <div className="booking-location-time booking-border-left-half cursor-pointer"
+                                            onClick={() => setShowPassenger(!showPassenger)}
+                                        >
+                                            <label className="Up booking-body-text-color">Hành Khách</label>
                                             <div className="input-main">
-                                                <input type="text" value="1"
+                                                <input
+                                                    type="text"
+                                                    value={`${adults} Người lớn, ${children} Trẻ em`}
+                                                    readOnly
                                                 />
-                                                <h6 className="airport-name-day booking-body-text-color hiden">
-                                                    Hạng vé
-                                                </h6>
                                             </div>
+                                        </div>
+                                        {showPassenger && (
+                                            <div ref={passengerRef} className="passenger-div" style={{ top: '300px' }}>
+                                                <div className="passenger-card">
+                                                    <span>Người lớn</span>
+                                                    <div className="mt-2 passenger-count">
+                                                        <button className="border px-2" onClick={() => handleChange("adults", "decrease")}>-</button>
+                                                        <span>{adults}</span>
+                                                        <button className="border px-2" onClick={() => handleChange("adults", "increase")}>+</button>
+                                                    </div>
+                                                </div>
+                                                <div className="mt-2 passenger-card">
+                                                    <span className="tooltip-container">
+                                                        Trẻ em
+                                                        <FontAwesomeIcon icon={faCircleQuestion} className="ml-1" />
+                                                        <span className="tooltip-text">Dưới 11 tuổi</span>
+                                                    </span>
 
-                                        </div>
-                                        {/*Calendar*/}
-                                        <div ref={timeElement} className={timelineClass}>
-                                            {isOpenTimeLine && (
-                                                <CustomCalendar
-                                                    setIsOpenTimeline={setIsOpenTimeline}
-                                                    timelineClass={timelineClass}
-                                                    searchInfo={searchInfo}
-                                                    setSearchInfo={setSearchInfo}
-                                                />
-                                            )}
-                                        </div>
+                                                    <div className="passenger-count">
+                                                        <button className="border px-2" onClick={() => handleChange("children", "decrease")}>-</button>
+                                                        <span>{children}</span>
+                                                        <button className="border px-2" onClick={() => handleChange("children", "increase")}>+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+
                                     </div>
-                                    <div class="search-flight-submit d-flex justify-content-center align-items-end" id="search-flight-submit-btn">
-                                        <input class="btn-xl w-100 btn-search-flight-modal" id="search-flight-submit-input" type="submit" value="Tìm chuyến bay" />
+                                    <div class="search-flight-submit d-flex justify-content-center align-items-end" id="search-flight-submit-btn" onClick={() => handleModalSubmit()}>
+                                        <input class="btn-xl w-100 btn-search-flight-modal" id="search-flight-submit-input" type="submit" value="Xác nhận" />
                                     </div>
                                 </div>
                             </div>

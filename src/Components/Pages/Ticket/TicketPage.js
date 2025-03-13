@@ -4,20 +4,23 @@ import Grid from "@mui/material/Grid";
 import "./TicketPage.css";
 import { useSearch } from "../../CustomHooks/SearchContext";
 import provinceData from "../../../assets/province.json";
+import { useAuth } from "../../Utils/AuthService";
+import api from "../../Utils/api";
 
 export default function TicketPage() {
+    const { isLoggedIn, logout, avatar, setAvatar, name, setName } = useAuth();
     const [provinces, setProvinces] = useState([]);
     const [numberTickets, setNumberTickets] = useState(1);
     const [passengerList, setPassengerList] = useState([]);
 
     useEffect(() => {
         setProvinces(provinceData.province);
-    
+
         const savedNumberTickets = localStorage.getItem("numberTickets");
         if (savedNumberTickets) {
             setNumberTickets(parseInt(savedNumberTickets));
         }
-    
+
         const savedPassengerList = localStorage.getItem("passengerList");
         if (savedPassengerList) {
             const parsedList = JSON.parse(savedPassengerList);
@@ -44,6 +47,66 @@ export default function TicketPage() {
     useEffect(() => {
         localStorage.setItem("passengerList", JSON.stringify(passengerList));
     }, [passengerList]);
+
+    const splitFullName = (fullName) => {
+        if (!fullName) return { FirstName: "", LastName: "" };
+
+        const nameParts = fullName.trim().split(" ");
+        if (nameParts.length === 1) {
+            return { FirstName: nameParts[0], LastName: "" };
+        }
+
+        return {
+            FirstName: nameParts[0],
+            LastName: nameParts.slice(1).join(" "),
+        };
+    };
+
+   
+
+    useEffect(() => {
+        const fetchUserMeta = async () => {
+            if (isLoggedIn && numberTickets === 1) {
+                try {
+                    const response = await api.get("/get-user-meta");
+                    const userData = response.data.meta;
+                    console.log("User data:", userData);
+        
+                    if (userData) {
+                        const { FirstName, LastName } = splitFullName(userData.fullName);
+        
+                        // Lọc danh sách quận/huyện từ ID thành phố (city)
+                        const matchingDistricts = provinceData.district.filter(
+                            (d) => d.idProvince === userData.city
+                        );
+        
+                        setPassengerList([
+                            {
+                                FirstName,
+                                LastName,
+                                DateOfBirth: userData?.dob || "",
+                                PassportNumber: userData?.numId || "",
+                                Country: "Việt Nam",
+                                City: userData?.city || "",
+                                District: matchingDistricts.find(d => d.idDistrict === userData.district)?.name || "",
+                                Contact: userData?.phone || "",
+                                Email: userData?.email || "",
+                                Discount: userData.Discount || "",
+                                Districts: matchingDistricts, // Danh sách huyện/quận của thành phố
+                                SeatId: "",
+                            },
+                        ]);
+                    }
+                } catch (error) {
+                    console.error("Lỗi khi lấy dữ liệu người dùng:", error);
+                }
+            }
+        };
+        
+
+        fetchUserMeta();
+    }, [isLoggedIn, numberTickets]);
+
 
     const initializePassengerList = (count) => {
         return Array.from({ length: count }, () => ({

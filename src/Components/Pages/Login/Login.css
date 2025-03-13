@@ -1,111 +1,22 @@
-@import url(../../Fonts/font.css);
+
+.login-container {
+    background-image: url(../../../assets/sky-bg.svg);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+}
+  
 .text-insertLogin {
-   
-    width: 450px; /* Đặt chiều rộng cho form */
-    position: absolute;
-    top: 58%; /* Đặt vị trí ở giữa theo chiều cao */
-    left: 50%; /* Đặt vị trí ở giữa theo chiều rộng */
-    transform: translate(-50%, -50%); /* Dịch chuyển form để nằm chính giữa */
-    font-family: "Open Sans";
-    font-weight: 100;
-    padding: 5px;
-    color: #000000;
-    
+    font-size: 24px;
+    margin-bottom: 20px;
 }
-
-.white-section {
-    height: 500px;
-    background-color: #ffffff ;
-    
-    
+  
+.google-login-button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
-.inforLogin {
-    background: #FFFFFF;
-    position: absolute;
-    top: 90%;
-    left: 50%;
-}
-
-
-
-.form-signin {
-    width: 400px; /* Đặt chiều rộng cho form */
-    position: absolute;
-    top: 50%; /* Đặt vị trí ở giữa theo chiều cao */
-    left: 50%; /* Đặt vị trí ở giữa theo chiều rộng */
-    transform: translate(-50%, -50%); /* Dịch chuyển form để nằm chính giữa */
-    padding: 50px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Thêm đổ bóng cho form */
-    background-color: #fff; /* Màu nền của form */
-}
-
-.form-controlLogin {
-    width: 100%; /* Đặt chiều rộng 100% cho input */
-    height: 40px;
-    margin-bottom: 10px; /* Thêm khoảng cách giữa các trường nhập */
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
- .search {
-    margin: 15px auto;
-    background: #0F5A90;
-    color: #FBF8F8;
-    font-family: open sans;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-/* Thêm vào file CSS của bạn, có thể là Header.css */
-.navbar-avatar {
-    position: relative;
-    cursor: pointer;
-}
-
-    .navbar-avatar img {
-        width: 40px; /* Điều chỉnh kích thước ảnh avatar */
-        height: 40px;
-        border-radius: 50%; /* Làm tròn ảnh avatar */
-        margin-right: 10px; /* Khoảng cách giữa ảnh avatar và nút dropdown */
-    }
-
-.dropdown {
-    position: absolute;
-    top: 100%; /* Hiển thị dropdown dưới avatar */
-    right: 0;
-    background-color: #fff; /* Màu nền của dropdown */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Đổ bóng cho dropdown */
-    border-radius: 4px; /* Làm tròn góc dropdown */
-    z-index: 1; /* Đảm bảo hiển thị trên các thành phần khác */
-    display: none;
-    width: 200px;
-}
-
-    .dropdown ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .dropdown li {
-        padding: 10px;
-    }
-
-    .dropdown a {
-        text-decoration: none;
-        color: #333; /* Màu chữ của các mục dropdown */
-        display: block;
-        transition: background-color 0.3s;
-    }
-
-        .dropdown a:hover {
-            background-color: #f0f0f0; /* Màu nền khi hover */
-        }
-
-/* Hiển thị dropdown khi hover vào navbar-avatar */
-.navbar-avatar:hover .dropdown {
-    display: block;
-}
+  

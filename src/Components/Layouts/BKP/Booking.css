@@ -1,6 +1,6 @@
 ﻿﻿@import url(../../Fonts/font.css);
 .booking-wrapper {
-    width: 80%;
+    width: 70%;
     height: auto;
     background-color: var(--color-blue);
     border-radius: 30px;
@@ -158,7 +158,6 @@
     font-size: 15px;
     font-family: Inter;
     top: 10%;
-    left: 10%;
     font-weight: 400;
     position: absolute;
 }
@@ -339,4 +338,60 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.booking-body-mybooking {
+    color: #333333;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    gap: 20px;
+    border-bottom: 1px solid #9A9C9E;
+    flex-wrap: wrap;
+}
+
+.ticket-code {
+    display: flex;
+    flex-direction: column; 
+    flex: 1; 
+    min-width: 250px;
+}
+
+.ticket-code input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.button-mybooking {
+    margin-top: 29px;
+}
+
+.custom-button-mybooking {
+    background-color: #E6B441;
+    color: #000000;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+}
+
+.custom-button-mybooking-login {
+    margin-top: 10px;
+    background-color: #E6B441;
+    color: #000000;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    width: 150px;
 }

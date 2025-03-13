@@ -66,18 +66,7 @@ export default function Payment() {
     console.log("DataComeback:", jsonDataComeback);
 
     console.log("Data:", jsonData);
-    useEffect(() => {
-        axios.get(
-            `https://bluestarbackend.vercel.app/api/api/discount/getDiscountById?discountID=${passengerInfo.Discount}`
-        )
-            .then(res => {
-                setDiscountPercent(res.data[0].D_PERCENT)
-                console.log("Discount:", res.data[0].D_PERCENT);
-
-            })
-            .catch(error => console.log(error));
-
-    }, [])
+   
     return (
         <>
             <div className="payment-body">
@@ -110,7 +99,7 @@ export default function Payment() {
                 <div>
                     <button className="payment-zalopay"
                         onClick={() => {
-                            axios.post("https://bluestarbackend.vercel.app/api/api/onlineCheckout/check_out", jsonData, {
+                            axios.post("http://localhost:8000/api/onlineCheckout/check_out", jsonData, {
                                 headers: {
                                     'Content-Type': 'application/json',
                                 },
@@ -119,7 +108,7 @@ export default function Payment() {
                                     console.log('Response:', response.data.data);
                                     if (response.data.redirect_url) {
                                         if (tripType === 'oneTrip') {
-                                            axios.post("https://bluestarbackend.vercel.app/api/api/payment/handleCallback", jsonData, {
+                                            axios.post("http://localhost:8000/api/payment/handleCallback", jsonData, {
                                                 headers: {
                                                     'Content-Type': 'application/json',
                                                 },
@@ -131,7 +120,7 @@ export default function Payment() {
                                                     console.error('Error:', error);
                                                 });
                                         } else {
-                                            axios.post("https://bluestarbackend.vercel.app/api/api/payment/handleCallback", jsonData, {
+                                            axios.post("http://localhost:8000/api/payment/handleCallback", jsonData, {
                                                 headers: {
                                                     'Content-Type': 'application/json',
                                                 },
@@ -143,7 +132,7 @@ export default function Payment() {
                                                     console.error('Error:', error);
                                                 });
 
-                                            axios.post("https://bluestarbackend.vercel.app/api/api/payment/handleCallback", jsonDataComeback, {
+                                            axios.post("http://localhost:8000/api/payment/handleCallback", jsonDataComeback, {
                                                 headers: {
                                                     'Content-Type': 'application/json',
                                                 },

@@ -1,6 +1,7 @@
 import SearchPage from "./Components/Layouts/BookingMain/SearchPage";
 import DefaultLayOut from "./Components/Layouts/DeafaultLayout/DefaultLayout";
 import MainLayOut from "./Components/Layouts/MainLayout/MainLayOut";
+import MainLayoutHeaderNav from "./Components/Layouts/MainLayoutHeaderNav/MainLayoutHeaderNav";
 import LayoutTicketReview from "./Components/Layouts/LayoutTicketReview/LayoutTicketReview";
 import Luggage from "./Components/Pages/Lugage/Lugage";
 import SeatBooking from "./Components/Pages/Seat/SeatBooking";
@@ -19,7 +20,7 @@ import AboutUs from "./Components/Pages/AboutUs/AboutUs";
 import LayoutAboutUs from "./Components/Layouts/LayoutAboutUs/LayoutAboutUs";
 import Payment from "./Components/Pages/Payment/Payment";
 import Explore from "./Components/Pages/Explore/explore";
-import Personal from "./Components/Pages/Personal/Personal";
+import Profile from "./Components/Pages/Profile/Profile";
 import Refund from "./Components/Pages/Refund/Refund";
 import KhachHang from "./Components/Pages/Admin/KhachHang/KhachHang";
 import ThemKhachHang from "./Components/Pages/Admin/KhachHang_Them/ThemKhachHang";
@@ -53,6 +54,7 @@ import MaGiamGia_Sua from "./Components/Pages/Admin/MaGiamGia_Sua/SuaMaGiamGia";
 import AdminLayout from "./Components/Layouts/AdminLayout/AdminLayout";
 import SeatReservation from "./Components/Pages/SeatReservation/SeatReservation";
 import ConfirmTicket from "./Components/Pages/ConfirmTicket/ConfirmTicket";
+import LuggageItinerary from "./Components/Pages/ItineraryHeader/Luggage/Luggage";
 
 const AppRoutes = [
   
@@ -87,7 +89,7 @@ const AppRoutes = [
         layout: MainLayOut
     },
     {
-        path: '/ticket-review',
+        path: '/ticket-review/:ticketCode/:fullName',
         element: TicketReview,
         layout: LayoutTicketReview
     },
@@ -142,8 +144,8 @@ const AppRoutes = [
         layout: LayoutTicketReview
     },
     {
-        path: '/personal',
-        element: Personal,
+        path: '/profile',
+        element: Profile,
         layout: LayoutTicketReview
     },
     {
@@ -306,6 +308,12 @@ const AppRoutes = [
         path: '/seatreservation',
         element: SeatReservation,
         layout: MainLayOut
+    },
+
+    {
+        path: '/itinerary-luggage',
+        element: LuggageItinerary,
+        layout: MainLayoutHeaderNav
     },
 
 ];

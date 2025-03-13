@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
 import logo from '../../../../src/assets/logo2.PNG';
 import { useNavigate } from 'react-router-dom';
-import  { useAuth } from '../Header/AuthService';
+import  { useAuth } from '../../Utils/AuthService';
 
 const Sidebar = ({ children }) => { 
     const [discountCount, setDiscountCount] = useState(0);

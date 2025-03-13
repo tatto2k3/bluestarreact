@@ -24,7 +24,7 @@ const ThemMayBay = () => {
         };
         console.log(planeData);
         try {
-        const planeResponse = await fetch("https://bluestarbackend.vercel.app/api/api/plane/addPlane", {
+        const planeResponse = await fetch("http://localhost:8000/api/plane/addPlane", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -107,7 +107,6 @@
     font-size: small;
 }
 
-/* Điều chỉnh dropdown ngôn ngữ */
 .navbar-language {
     margin-left: 10px;
     border: 1px solid #ddd;
@@ -131,6 +130,129 @@
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
+.navbar > img:hover {
+    cursor: pointer;
+}
+
 .navbar-top-right {
     margin-bottom: 5px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.user-avatar {
+    width: 37px;
+    height: 37px;
+    border-radius: 50%; /* Giúp hình ảnh trở thành hình tròn */
+    object-fit: cover;  /* Đảm bảo hình ảnh không bị méo */
+    border: 2px solid #007bff;
+}
+
+.user-info button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.user-info button:hover {
+    background-color: #c82333;
+}
+
+.navbar-login a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.navbar-login a:hover {
+    color: #0056b3;
+}
+
+.account-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px; 
+}
+
+.account-name:hover {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.dropdown-menu-avatar {
+    display: none;
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1000;
+    margin-top: 140px;
+    border-radius: 10px;
+    width: 200px;
+}
+.dropdown-menu-avatar.show {
+    display: block !important;
+}
+
+.dropdown-menu-avatar > p {
+    margin: 0;
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+    color: #333;
+}
+
+.dropdown-menu-avatar > p:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-menu-header {
+    position: absolute;
+    top: 88%;
+    left: 0;
+    background-color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 10px;
+    border-radius: 5px;
+    color: #333;
+    animation: slideDown 0.3s ease-in-out;
+}
+
+.bluestar-content a {
+    display: block;
+    padding: 8px 15px;
+    color: black;
+    text-decoration: none;
+}
+
+.bluestar-content a:hover {
+    background-color: #f0f0f0;
 }

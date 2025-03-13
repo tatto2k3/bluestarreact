@@ -1,103 +1,57 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import "./Login.css";
-import  { useAuth } from '../../Layouts/Header/AuthService';
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
+import './Login.css';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
-    const [account, setAccount] = useState({ email: '', password: '' });
-    const { login, setAvatar } = useAuth();
+export default function Login() {
+
     const navigate = useNavigate();
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setAccount({ ...account, [name]: value });
-    };
+    useEffect(() => {
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn) {
+            navigate("/"); 
+        }
+    }, [navigate]);
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
-
-        const response = await fetch('https://bluestarbackend.vercel.app/api/api/account/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(account),
-        });
-
-        if (response.ok) {
-            const responseData = await response.json();
-            console.log('Response Data:', responseData);
-
-            
-            login();
-
-            localStorage.setItem('isLoggedIn', true);
-            localStorage.setItem('avatar', responseData.avatar);
-            localStorage.setItem('email', account.email);
-            
-            
-
-            // Set avatar in the context
-            setAvatar(responseData.avatar);
-            console.log("Email login:", localStorage.getItem('email'));
-            if (responseData.redirect === '/KhachHang') {
-                localStorage.setItem('emailNhanVien', account.email);
+    const sendTokenToBackend = async (token) => {
+        try {
+            const response = await fetch("http://localhost:8000/api/auth/google", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ token })
+            });
+            const data = await response.json();
+            console.log("Backend Response:", data);
+            if (data.access_token) {
+                localStorage.setItem("access_token", data.access_token);
+                localStorage.setItem("refresh_token", data.refresh_token);
+                localStorage.setItem("avatar", data.avatar);
+                localStorage.setItem("email", data.user.email);
+                localStorage.setItem('isLoggedIn', true);
+                localStorage.setItem("name", data.user.name);
+                window.location.href = "/";
             }
-
-            console.log('Login success!');
-            navigate(responseData.redirect);
-        } else {
-            console.error('Login failed!');
-            alert("Login failed");
+        } catch (error) {
+            console.error("Error sending token to backend:", error);
         }
     };
 
     return (
-        <div className="container">
-            <div className="text-insertLogin">
-                <h1>Đăng nhập tài khoản</h1>
+        <GoogleOAuthProvider clientId="891374767728-0v026vakvdcic7rqonj3reh80c04me68.apps.googleusercontent.com">
+            <div className="login-container">
+                <GoogleLogin
+                    onSuccess={(response) => {
+                        console.log("Login Success:", response);
+                        const googleToken = response.credential;
+                        sendTokenToBackend(googleToken);
+                    }}
+                    onError={() => console.log("Login Failed")}
+                />
             </div>
-            <div className="white-section">
-                <div className="inforLogin">
-                    <form className="form-signin" onSubmit={handleLogin}>
-                        <div className="mb-3">
-                            <label htmlFor="inputEmail" className="col-form-label">Email</label>
-                            <input
-                                type="email"
-                                className="form-controlLogin"
-                                id="inputEmail"
-                                name="email"
-                                placeholder=""
-                                required
-                                value={account.email}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="inputPassword" className="col-form-label">Mật khẩu</label>
-                            <input
-                                type="password"
-                                className="form-controlLogin"
-                                id="inputPassword"
-                                name="password"
-                                placeholder=""
-                                required
-                                value={account.password}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <button type="submit" className="btn btn-primary btn-block" id="btnLogin">Đăng nhập</button>
-                        </div>
-                        <div className="mb-3 d-flex justify-content-between">
-                            <a href="#">Quên mật khẩu ?</a>
-                            <a href="/sign-up">Đăng ký</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        </GoogleOAuthProvider>
     );
-};
-
-export default Login;
+}

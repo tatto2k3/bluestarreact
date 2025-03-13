@@ -86,47 +86,44 @@ export default function MainLayOut({ children }) {
             const parsedPassengerList = JSON.parse(savedPassengerList);
             setPassengerList(parsedPassengerList);
         }
-    }, []);
+    }, [location.pathname]);
 
     console.log(total1);
     const ticket_amount = parseInt(total1);
 
     const createJsonData = (flight) => ({
         "passengerList": passengerList,
-        "flight_id": `${flight.id}`,
-        "departure_day": `${flight.departureDay}`,
-        "arrive_day": `${flight.departureDay}`,
-        "departure_time": `${flight.departureTime}`,
-        "arrive_time": `${flight.arrivalTime}`,
-        "duration_time": `${formatTimeDuration(flight.departureTime, flight.arrivalTime)}`,
-        "trip_type": `${tripType}`
+        "flight_id": flight.id,
+        "departure_day": flight.departureDay,
+        "arrive_day": flight.arrivalDay || flight.departureDay,
+        "departure_time": flight.departureTime,
+        "arrive_time": flight.arrivalTime,
+        "duration_time": formatTimeDuration(flight.departureTime, flight.arrivalTime),
+        "trip_type": tripType
     });
-
+    
     const handlePayment = async () => {
         try {
-            const response = await axios.post("https://bluestarbackend.vercel.app/api/api/onlineCheckout/check_out", { ticket_amount }, {
-                headers: { 'Content-Type': 'application/json' },
-            });
+            const response = await axios.post("http://localhost:8000/api/onlineCheckout/check_out", 
+                { ticket_amount }, 
+                { headers: { 'Content-Type': 'application/json' } }
+            );
+            console.log(response);
             if (response.data.redirect_url) {
-                const jsonData = createJsonData(departFlight);
-                console.log(jsonData);
-                const responseSavedTicket = await axios.post("https://bluestarbackend.vercel.app/api/api/payment/handleCallback", jsonData, {
+                const jsonDataDepart = createJsonData(departFlight);
+                console.log("Dữ liệu chuyến đi:", jsonDataDepart);
+    
+                await axios.post("http://localhost:8000/api/payment/handleCallback", jsonDataDepart, {
                     headers: { 'Content-Type': 'application/json' },
                 });
-                if (tripType === "roundTrip") {
-                    const jsonDataComeback = createJsonData(passenger, ariveFlight);
-                    await axios.post("https://bluestarbackend.vercel.app/api/api/payment/handleCallback", jsonDataComeback, {
-                        headers: { 'Content-Type': 'application/json' },
-                    });
-                }
+                window.location.href = response.data.redirect_url;
             }
-            window.location.href = response.data.redirect_url;
         } catch (error) {
             console.error("Lỗi thanh toán:", error);
             alert("Thanh toán thất bại, vui lòng thử lại!");
         }
     };
-
+    
     return (
         <>
             <HeaderReview />

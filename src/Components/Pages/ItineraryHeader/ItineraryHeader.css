@@ -1,0 +1,54 @@
+.itinerary-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #f8f9fc;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100vw; 
+    z-index: 1000;
+}
+
+.itinerary-container > div {
+    flex: 1;
+    padding: 0 15px;
+}
+
+.itinerary-container div:not(:last-child) {
+    border-right: 1px solid #d0d3db;
+}
+
+.itinerary-luggage-column-title,
+.itinerary-procedure-column-title,
+.itinerary-service-column-title,
+.itinerary-require-column-title,
+.itinerary-airport-column-title {
+    font-weight: bold;
+    font-size: 16px;
+    color: #2b4c85;
+    margin-bottom: 10px;
+    border-right: none !important;
+}
+
+.itinerary-luggage-column-content a,
+.itinerary-procedure-column-content a,
+.itinerary-service-column-content a,
+.itinerary-require-column-content a,
+.itinerary-airport-column-content a {
+    display: block !important;
+    color: #5a5a5a !important;
+    text-decoration: none !important;
+    font-size: 16px !important;
+    padding: 3px 0 !important;
+}
+
+.itinerary-luggage-column-content a:hover,
+.itinerary-procedure-column-content a:hover,
+.itinerary-service-column-content a:hover,
+.itinerary-require-column-content a:hover,
+.itinerary-airport-column-content a:hover {
+    text-decoration: underline !important;
+}
