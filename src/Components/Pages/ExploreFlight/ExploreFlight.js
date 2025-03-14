@@ -163,29 +163,7 @@ export default function ExploreFlight() {
                                 <p className='modal-search-flight-title-text'>Tìm chuyến bay</p>
                             </div>
                             <div className="booking-checkbox-wrapper" style={{ marginTop: "20px" }}>
-                                <div className="flight_one_way">
-                                    <label className="option_label">
-                                        <input
-                                            type="radio"
-                                            value="oneWay"
-                                            checked={tripType === "oneWay"}
-                                            onChange={handleTripTypeChange}
-                                        />
-                                        <span>Một chiều</span>
-                                    </label>
-                                </div>
-                                {/*Round-trip-checkbox*/}
-                                <div className="flight_round-trip">
-                                    <label className="option_label">
-                                        <input
-                                            type="radio"
-                                            value="roundTrip"
-                                            checked={tripType === "roundTrip"}
-                                            onChange={handleTripTypeChange}
-                                        />
-                                        <span>Khứ hồi</span>
-                                    </label>
-                                </div>
+                               
                             </div>
                             <div className="booking-body">
                                 <div className="booking-body-details">
