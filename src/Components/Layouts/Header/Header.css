@@ -4,19 +4,21 @@
     font-family: "Oleo Script";
     font-size:32px;
 }
+
 .main-color {
     background: linear-gradient(180deg, #4698D4 1.27%, rgba(125, 209, 248, 0.27) 126.64%);
 }
-
 
 .nav-item  {
     font-family: "Inter";
     font-size: 18px;
     margin-right:20px;
 }
+
 .text-main-color {
     color: #0F5A90;
 }
+
 .main-button {
     border: none;
     outline: none;
@@ -25,25 +27,24 @@
     padding-left:12px;
     padding-right:12px;
 }
+
 .main-button:hover {
    background-color: #fff;
-
 }
 
 .main-button:hover a {
     color: #0F5A90;
 }
+
 .main-button a 
 {
     color:#fff;
-
 }
 .custom-margin {
     margin-right: 15px;
 
 }
 
-/* Định dạng tổng thể của carousel */
 .carousel {
     width: 100%;
     max-height: 500px; /* Chiều cao tối đa của slide */
@@ -88,18 +89,60 @@
     }
 }
 
-.logo-rotate {
-    width: 100px; /* Điều chỉnh kích thước logo nếu cần */
-    height: auto;
-    animation: rotateLogo 6s linear infinite; /* Xoay 6 giây/lần, lặp vô hạn */
+.navbar > .logo-rotate {
+    width: 60px;
+    margin-left: 10px;
+    animation: rotateLogo 6s linear infinite;
 }
 
 .navbar {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
     border-bottom: 1px solid #ddd;
+}
+
+.navbar-menu-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+    height: 100%;
+    left: 50%;
+}
+
+
+.navbar-links {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.navbar-links li {
+    margin: 0 15px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-links li a {
+    text-decoration: none;
+    color: var(--color-blue);
+    font-weight: 500;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.navbar-links li a:hover {
+    color: var(--color-moreblue);
+}
+
+.navbar-right {
+    align-items: center;
 }
 
 .navbar-help {
@@ -118,12 +161,12 @@
     transition: all 0.3s ease;
 }
 
-/* Khi hover vào dropdown */
+
+
 .navbar-language:hover {
     background-color: #f0f0f0;
 }
 
-/* Khi focus vào dropdown */
 .navbar-language:focus {
     outline: none;
     border-color: #007bff;
@@ -138,6 +181,29 @@
     margin-bottom: 5px;
 }
 
+.navbar-login {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.navbar-login a {
+    color: var(--color-blue);
+    text-decoration: none;
+    text-transform: capitalize;
+}
+
+.navbar-login div {
+    width: 1px;
+    height: 30px;
+    background-color: var(--color-primary);
+    margin: 0 1rem;
+}
+
+.navbar-smallscreen {
+    display: none;
+}
+
 .user-info {
     display: flex;
     align-items: center;
@@ -150,8 +216,8 @@
 .user-avatar {
     width: 37px;
     height: 37px;
-    border-radius: 50%; /* Giúp hình ảnh trở thành hình tròn */
-    object-fit: cover;  /* Đảm bảo hình ảnh không bị méo */
+    border-radius: 50%;
+    object-fit: cover;
     border: 2px solid #007bff;
 }
 
@@ -235,12 +301,11 @@
 
 .dropdown-menu-header {
     position: absolute;
-    top: 88%;
+    top: 82px;
     left: 0;
     background-color: white;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    padding: 10px;
     border-radius: 5px;
     color: #333;
     animation: slideDown 0.3s ease-in-out;
@@ -256,3 +321,137 @@
 .bluestar-content a:hover {
     background-color: #f0f0f0;
 }
+
+
+/* Mobile (dưới 768px) */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .navbar-links {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar-links li {
+        margin: 10px 0;
+    }
+
+    .user-info {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .carousel-inner img {
+        height: 300px;
+    }
+
+    .navbar-right {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 10px;
+    }
+
+    .carousel-inner img {
+        height: 400px;
+    }
+
+    .navbar-links li {
+        margin: 5px;
+    }
+
+    .user-avatar {
+        width: 30px;
+        height: 30px;
+    }
+
+    .account-name {
+        font-size: 14px;
+    }
+}
+
+.navbar {
+    height: 82px;
+}
+
+.menu-toggle {
+    display: block;
+    color: #fff;
+}
+
+@media (max-width: 992px) {
+    .navbar {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 10px;
+        position: relative;
+    }
+
+    .menu-toggle {
+        display: block;
+        font-size: 24px;
+        cursor: pointer;
+        position: absolute;
+        right: 20px;
+        top: 15px;
+        z-index: 999;
+        color: #0056b3;
+    }
+
+    .navbar-menu-container {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: fit-content;
+        background-color: white;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        display: none;
+        flex-direction: column;
+        padding: 10px;
+        z-index: 999;
+    }
+
+    .navbar-menu-container.show {
+        display: flex;
+    }
+
+    .navbar-links {
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+    }
+
+    .navbar-links li {
+        padding: 10px 0;
+    }
+
+    .navbar-right {
+        position: absolute;
+        top: 100%;
+        left: auto;
+        right: 0;
+        width: 100%;
+        background: white;
+        text-align: center;
+        padding: 10px 0;
+    }
+    .navbar-top-right {
+        display: none;
+    }
+    .dropdown-menu-avatar {
+        position: relative;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+
