@@ -387,7 +387,7 @@
     color: #fff;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 820px) {
     .navbar {
         flex-direction: row;
         justify-content: space-between;
@@ -435,22 +435,19 @@
     }
 
     .navbar-right {
-        position: absolute;
+        order: -1;
         top: 100%;
         left: auto;
         right: 0;
         width: 100%;
         background: white;
-        text-align: center;
         padding: 10px 0;
     }
-    .navbar-top-right {
-        display: none;
-    }
+    
     .dropdown-menu-avatar {
         position: relative;
-        width: 100%;
         text-align: center;
+        margin-top: 0;
     }
 }
 

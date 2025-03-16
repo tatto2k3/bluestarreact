@@ -1,7 +1,4 @@
-﻿
-
-
-.navbar-login {
+﻿.navbar-login {
     display: flex;
     align-items: center;
     margin-right: 10px;
@@ -22,21 +19,6 @@
 
 .navbar-smallscreen {
     display: none;
-}
-
-
-@media screen and (max-width: 650px) {
-    .navbar-login {
-        display: none;
-    }
-
-    .navbar {
-        padding: 1rem;
-    }
-
-    .navbar img {
-        width: 40px;
-    }
 }
 
 .header-body {
@@ -62,7 +44,7 @@
 
 .refx-title {
     color: #ff0018;
-    font-size: 24px;
+    font-size: 1em;
     font-weight: bold;
     text-align: center;
 }

@@ -395,3 +395,13 @@
     text-align: center;
     width: 150px;
 }
+
+@media screen and (max-width: 600px) {
+    .booking-wrapper {
+        width: 100%;
+    }
+
+    .List_Countries_Wrapper {
+        width: 400px;
+    }
+}

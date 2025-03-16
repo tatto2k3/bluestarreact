@@ -5,7 +5,7 @@ import './ItineraryHeader.css';
 export default function ItineraryHeader() {
     return (
         <div className='itinerary-container'>
-            <div className='itinerary-luggage-column'>
+            <div className='itinerary-column itinerary-luggage-column'>
                 <div className='itinerary-luggage-column-title'>Hành lý</div>
                 <div className='itinerary-luggage-column-content'>
                     <a href='/itinerary-luggage'>Hành lý xách tay</a>
@@ -15,7 +15,7 @@ export default function ItineraryHeader() {
                     <a href='/itinerary-luggage'>Liên hệ tìm kiếm hành lý</a>
                 </div>
             </div>
-            <div className='itinerary-procedure-column'>
+            <div className='itinerary-column itinerary-procedure-column'>
                 <div className='itinerary-procedure-column-title'>Làm thủ tục</div>
                 <div className='itinerary-procedure-column-content'>
                     <a href='/itinerary-luggage'>Làm thủ tục trực tuyến</a>
@@ -24,7 +24,7 @@ export default function ItineraryHeader() {
                     <a href='/itinerary-luggage'>Gỡ tình trạng làm thủ tục</a>
                 </div>
             </div>
-            <div className='itinerary-service-column'>
+            <div className='itinerary-column itinerary-service-column'>
                 <div className='itinerary-service-column-title'>Dịch vụ đặc biệt</div>
                 <div className='itinerary-service-column-content'>
                     <a href='/itinerary-luggage'>Dịch vụ cho trẻ em</a>
@@ -35,7 +35,7 @@ export default function ItineraryHeader() {
                     <a href='/itinerary-luggage'>Suất ăn đặc biệt</a>
                 </div>
             </div>
-            <div className='itinerary-require-column'>
+            <div className='itinerary-column itinerary-require-column'>
                 <div className='itinerary-require-column-title'>Yêu cầu giấy tờ</div>
                 <div className='itinerary-require-column-content'>
                     <a href='/itinerary-luggage'>Yêu cầu xác nhận sức khỏe</a>
@@ -43,7 +43,7 @@ export default function ItineraryHeader() {
                     <a href='/itinerary-luggage'>Quy định xuất nhập cảnh</a>
                 </div>
             </div>
-            <div className='itinerary-airport-column'>
+            <div className='itinerary-column itinerary-airport-column'>
                 <div className='itinerary-airport-column-title'>Sân bay & mạng bay</div>
                 <div className='itinerary-airport-column-content'>
                     <a href='/itinerary-luggage'>Thông tin sân bay</a>
